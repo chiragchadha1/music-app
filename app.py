@@ -4,8 +4,8 @@ from flask_cors import CORS #comment this on deployment
 from api.HelloApiHandler import HelloApiHandler
 from flask_vite import Vite
 
-app = Flask(__name__, static_url_path='', static_folder='frontend/public')
-CORS(app) #comment this on deployment
+app = Flask(__name__, static_url_path='', static_folder='vite/dist')
+# CORS(app) #comment this on deployment
 api = Api(app)
 vite = Vite(app)
 
