@@ -1,37 +1,14 @@
-from flask import Flask, jsonify, g
-import mysql.connector
+from flask import Flask, send_from_directory
+from flask_restful import Api, Resource, reqparse
+from flask_cors import CORS #comment this on deployment
+from api.HelloApiHandler import HelloApiHandler
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='frontend/build')
+CORS(app) #comment this on deployment
+api = Api(app)
 
-def get_db():
-    if 'db' not in g:
-        g.db = mysql.connector.connect(
-            user="admin",
-            password="6kWyqokwLRHqy6HyIvKC",
-            host="musicapp.cf3u0flvivkp.us-east-1.rds.amazonaws.com",
-            database="musicApp" # Replace with your database name
-        )
-    return g.db
+@app.route("/", defaults={'path':''})
+def serve(path):
+    return send_from_directory(app.static_folder,'index.html')
 
-@app.teardown_appcontext
-def close_db(e=None):
-    db = g.pop('db', None)
-    if db is not None:
-        db.close()
-
-@app.route("/")
-def hello():
-    db = get_db()
-    # Creating a cursor object
-    cur = db.cursor(dictionary=True)
-    try:
-        cur.execute('SELECT * FROM User')
-        results = cur.fetchall()
-        return jsonify(results) #returning the results as JSON
-    except Exception as e:
-        print("Error: unable to fetch items")
-        print(e)
-    return jsonify({"response": "Error in the database query"})
-
-if __name__ == "__main__":
-    app.run()
+api.add_resource(HelloApiHandler, '/flask/hello')
