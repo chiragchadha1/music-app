@@ -1,22 +1,25 @@
 from flask import Flask
-from flaskext.mysql import MySQL
+import mysql.connector
 
 app = Flask(__name__)
-mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'admin'
-app.config['MYSQL_DATABASE_PASSWORD'] = '6kWyqokwLRHqy6HyIvKC'
-app.config['MYSQL_DATABASE_HOST'] = 'musicapp.cf3u0flvivkp.us-east-1.rds.amazonaws.com'
-app.config['MYSQL_DATABASE_DB'] = 'musicApp'
-conn = mysql.connect()
-cursor =conn.cursor()
 
-cursor.execute("SELECT * from User")
-data = cursor.fetchone()
-mysql.init_app(app)
+# Establishing the connection
+cnx = mysql.connector.connect(
+    user="admin",
+    password="6kWyqokwLRHqy6HyIvKC",
+    host="musicapp.cf3u0flvivkp.us-east-1.rds.amazonaws.com",
+    database="musicApp" # Replace with your database name
+)
+
+# Creating a cursor object
+cur = cnx.cursor()
+
 
 @app.route("/")
 def hello():
-    return data
+    cur.execute('SELECT * FROM User')
+    user = cur.fetchone()
+    return user
 
 if __name__ == "__main__":
     app.run()
