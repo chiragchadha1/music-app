@@ -18,8 +18,8 @@ cur = cnx.cursor()
 @app.route("/")
 def hello():
     cur.execute('SELECT * FROM User')
-    user = cur.fetchone()
-    return user
+    user = cur.fetchall()
+    return user[0]
 
 if __name__ == "__main__":
     app.run()
