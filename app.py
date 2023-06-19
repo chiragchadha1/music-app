@@ -10,6 +10,9 @@ api = Api(app)
 vite = Vite(app)
 
 @app.route("/", defaults={'path':''})
+@app.route('/')
+@app.route('/signup')
+@app.route('/login')
 def serve(path):
     return send_from_directory(app.static_folder,'index.html')
 
