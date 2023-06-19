@@ -18,6 +18,33 @@ function SignUp() {
     const onSubmit = (data) => {
         console.log(data);
 
+        if (data.password === data.confirmPassword) {
+            const body = {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                username: data.username,
+                email: data.email,
+                password: data.password
+
+            }
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            };
+        }
+
+        fetch('/auth/signup', requestOptions)
+            .then(rest => rest.json())
+            .then(data => {
+                console.log(data)
+                // setServerResponse(data.message)
+                // setShow(true)
+            })
+            .catch(err =>   console.log(err))
+
         reset();
     }
 
