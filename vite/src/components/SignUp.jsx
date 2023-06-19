@@ -208,7 +208,7 @@ function SignUp() {
                                     message: 'Password must have at least 8 characters',
                                 },
                                 pattern: {
-                                    value: /^(\S)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])[a-zA-Z0-9~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]{10,16}$/,
+                                    value: /^(\S)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])[a-zA-Z0-9~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]{10,16}$/, //eslint-disable-line
                                     message:
                                         'Password should include at least one uppercase, one lowercase, one numeric value and one special character',
                                 },

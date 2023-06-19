@@ -1,7 +1,16 @@
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import { Nav, Navbar, Container, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useIsAuthenticated, useAuthUser, useSignOut } from 'react-auth-kit';
 
 function NavBar() {
+    const isAuthenticated = useIsAuthenticated();
+    const authUser = useAuthUser();
+    const signOut = useSignOut();
+
+    const handleSignOut = () => {
+        signOut();
+    };
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -12,13 +21,22 @@ function NavBar() {
                         <LinkContainer to="/">
                             <Nav.Link>Home</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/signup">
-                            <Nav.Link>Sign Up</Nav.Link>
-                        </LinkContainer>
+                    </Nav>
+                    {!isAuthenticated() && (
+                            <LinkContainer className="mx-3" to="/signup">
+                                <Nav.Link>Sign Up</Nav.Link>
+                            </LinkContainer>
+                    )}
+                    {!isAuthenticated() ? (
                         <LinkContainer to="/login">
                             <Nav.Link>Login</Nav.Link>
                         </LinkContainer>
-                    </Nav>
+                    ) : (
+                        <div className="ml-auto">
+                            <Navbar.Text className='px-3'>Hello, {authUser().username}</Navbar.Text>
+                            <Button variant="outline-danger" onClick={handleSignOut}>Sign Out</Button>
+                        </div>
+                    )}
                 </Navbar.Collapse>
             </Container>
         </Navbar>

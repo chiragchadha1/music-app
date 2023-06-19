@@ -118,12 +118,13 @@ DELIMITER ;
 
 DELIMITER //
 
+DROP PROCEDURE IF EXISTS LoginUser;
 CREATE PROCEDURE LoginUser(
-    IN username VARCHAR(50),
-    IN password VARCHAR(255)
+	IN `user` VARCHAR(50), 
+    IN `pass` VARCHAR(50)
 )
 BEGIN
-    SELECT * FROM User WHERE username = username AND password = password;
+    SELECT * FROM User WHERE username = `user` AND password = `pass`;
 END //
 
 DELIMITER ;

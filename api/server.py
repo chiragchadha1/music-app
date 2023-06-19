@@ -1,8 +1,14 @@
 from flask import Flask, jsonify, g, request
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_cors import CORS #comment this on deployment
 import mysql.connector
+import jwt
+import datetime
+
 
 app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = "secret"
+jwt = JWTManager(app)
 CORS(app) #comment this on deployment
 
 def get_db():
@@ -15,11 +21,28 @@ def get_db():
         )
     return g.db
 
+def generate_token(user_id):
+    # Define the payload for the JWT token
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)  # Token expiration time
+    }
+
+    # Generate the JWT token
+    token = jwt.encode(payload, 'your_secret_key', algorithm='HS256')  # Replace 'your_secret_key' with your own secret key
+
+    return token
+
 @app.teardown_appcontext
 def close_db(e=None):
     db = g.pop('db', None)
     if db is not None:
         db.close()
+
+@app.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    return jsonify({'message': 'This is a protected route'})
 
 @app.route("/")
 def hello():
@@ -63,20 +86,28 @@ def login():
     db = get_db()
     cur = db.cursor()
     try:
+        # cur.callproc("LoginUser", (user_details['username'], user_details['password']))
         cur.callproc("LoginUser", (user_details['username'], user_details['password']))
-        user = cur.fetchone()
-        if user:
-            user_data = {
-                'user_ID': user[0],
-                'email_id': user[1],
-                'username': user[2],
-                'first_name': user[4],
-                'last_name': user[5],
-                'date_of_birth': user[6]
-            }
-            return jsonify({'user': user_data})
-        else:
-            return jsonify({'message': 'Invalid username or password'}), 401
+        for result in cur.stored_results():
+            user = result.fetchone()
+            if user:
+                user_data = {
+                    'user_ID': user[0],
+                    'email_id': user[1],
+                    'username': user[2],
+                    'first_name': user[4],
+                    'last_name': user[5],
+                    'date_of_birth': user[6]
+                }
+                token = create_access_token(identity=user_data['user_ID'])
+                return jsonify({
+                    'response': 'Login successful',
+                    'token': token,
+                    'expiresIn': '36000000',
+                    'user': user_data
+                }), 200
+            else:
+                return jsonify({'response': 'Invalid username or password'}), 401
     except Exception as e:
         print("Error: unable to perform login")
         print(e)
@@ -84,6 +115,7 @@ def login():
     finally:
         cur.close()
         db.close()
+
 
 @app.route("/search", methods=['GET'])
 def search():
