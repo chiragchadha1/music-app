@@ -24,7 +24,7 @@ function SignUp() {
 
     return (
         <div className='container'>
-            <h1 className='my-3'>Sign Up</h1>
+            <h1 className='my-3'>WUMBO</h1>
             <div className="form">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className='mb-3'>
