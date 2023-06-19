@@ -6,7 +6,7 @@ import jwt
 import datetime
 
 
-app = Flask(__name__, static_url_path='', static_folder='vite/dist')
+app = Flask(__name__, static_url_path='', static_folder='../vite/dist')
 app.config["JWT_SECRET_KEY"] = "secret"
 jwt = JWTManager(app)
 CORS(app) #comment this on deployment
