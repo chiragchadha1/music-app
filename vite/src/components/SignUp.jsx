@@ -4,12 +4,6 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 function SignUp() {
-    // const [firstName, setFirstName] = useState('');
-    // const [lastName, setLastName] = useState('');
-    // const [username, setUsername] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [confirmPassword, setConfirmPassword] = useState('');
 
     const { register, watch, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange' });
 
@@ -25,25 +19,22 @@ function SignUp() {
                 username: data.username,
                 email: data.email,
                 password: data.password
-
             }
             const requestOptions = {
                 method: "POST",
                 headers: {
-                    'content-type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)
             };
-        }
 
-        fetch('/auth/signup', requestOptions)
-            .then(rest => rest.json())
-            .then(data => {
-                console.log(data)
-                // setServerResponse(data.message)
-                // setShow(true)
-            })
-            .catch(err =>   console.log(err))
+            fetch('http://127.0.0.1:5000/signup', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(err => console.log(err));
+        }
 
         reset();
     }
