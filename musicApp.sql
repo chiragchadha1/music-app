@@ -11,9 +11,9 @@ CREATE TABLE User (
     email_id VARCHAR(255) NOT NULL,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    date_of_birth DATE,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE NOT NULL,
     profile_pic BLOB
 );
 
@@ -97,4 +97,170 @@ CREATE TABLE PlaylistSongs (
     FOREIGN KEY (song_ID) REFERENCES Songs(song_ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- SELECT * FROM User;
+
+DELIMITER //
+
+CREATE PROCEDURE RegisterUser(
+    IN email_id VARCHAR(255),
+    IN username VARCHAR(50),
+    IN password VARCHAR(255),
+    IN first_name VARCHAR(50),
+    IN last_name VARCHAR(50),
+    IN date_of_birth DATE
+)
+BEGIN
+    INSERT INTO User (email_id, username, password, first_name, last_name, date_of_birth)
+    VALUES (email_id, username, password, first_name, last_name, date_of_birth);
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE LoginUser(
+    IN username VARCHAR(50),
+    IN password VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM User WHERE username = username AND password = password;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE Search(
+    IN query VARCHAR(100),
+    IN table_name VARCHAR(100)
+)
+BEGIN
+    SET @search_query = CONCAT('%', query, '%');
+    SET @sql_statement = CONCAT('SELECT * FROM ', table_name, ' WHERE name LIKE ?');
+    PREPARE stmt FROM @sql_statement;
+    EXECUTE stmt USING @search_query;
+    DEALLOCATE PREPARE stmt;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE LikeSong(
+    IN user_ID INT,
+    IN song_ID INT
+)
+BEGIN
+    INSERT INTO LikedSongs (user_ID, song_ID) VALUES (user_ID, song_ID);
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE CreatePlaylist(
+    IN name VARCHAR(100),
+    IN author VARCHAR(100),
+    IN duration INT,
+    IN user_ID INT
+)
+BEGIN
+    INSERT INTO Playlist (name, author, duration, user_ID)
+    VALUES (name, author, duration, user_ID);
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE FollowArtist(
+    IN user_ID INT,
+    IN artist_ID INT
+)
+BEGIN
+    INSERT INTO Followers (user_ID, artist_ID) VALUES (user_ID, artist_ID);
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE AddSongToPlaylist(
+    IN playlist_id INT,
+    IN song_id INT
+)
+BEGIN
+    INSERT INTO PlaylistSongs (playlist_id, song_id)
+    VALUES (playlist_id, song_id);
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE DeleteSongFromPlaylist(
+    IN playlist_id INT,
+    IN song_id INT
+)
+BEGIN
+    DELETE FROM PlaylistSongs
+    WHERE playlist_id = playlist_id AND song_id = song_id;
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE UpdateSongDetails(
+    IN song_id INT,
+    IN new_duration INT,
+    IN new_language VARCHAR(50)
+)
+BEGIN
+    UPDATE Songs
+    SET duration = new_duration, language = new_language
+    WHERE song_id = song_id;
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE UpdateUserDetails(
+    IN user_id INT,
+    IN new_email_id VARCHAR(255),
+    IN new_username VARCHAR(50),
+    IN new_password VARCHAR(255),
+    IN new_first_name VARCHAR(50),
+    IN new_last_name VARCHAR(50),
+    IN new_date_of_birth DATE
+)
+BEGIN
+    UPDATE User
+    SET email_id = new_email_id, username = new_username, password = new_password,
+    first_name = new_first_name, last_name = new_last_name, date_of_birth = new_date_of_birth
+    WHERE user_id = user_id;
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE GetPlaylistSongs(
+    IN playlist_id INT
+)
+BEGIN
+    SELECT Songs.*
+    FROM Songs
+    JOIN PlaylistSongs ON Songs.song_id = PlaylistSongs.song_id
+    WHERE PlaylistSongs.playlist_id = playlist_id;
+END //
+
+DELIMITER ;
