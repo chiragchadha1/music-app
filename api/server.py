@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, g, request
+from flask import Flask, jsonify, g, request, send_from_directory
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_cors import CORS #comment this on deployment
 import mysql.connector
@@ -6,7 +6,7 @@ import jwt
 import datetime
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='vite/dist')
 app.config["JWT_SECRET_KEY"] = "secret"
 jwt = JWTManager(app)
 CORS(app) #comment this on deployment
@@ -44,19 +44,9 @@ def close_db(e=None):
 def protected():
     return jsonify({'message': 'This is a protected route'})
 
-@app.route("/")
-def hello():
-    db = get_db()
-    # Creating a cursor object
-    cur = db.cursor(dictionary=True)
-    try:
-        cur.execute('SELECT * FROM User')
-        results = cur.fetchall()
-        return jsonify(results) #returning the results as JSON
-    except Exception as e:
-        print("Error: unable to fetch items")
-        print(e)
-    return jsonify({"response": "Error in the database query"})
+@app.route("/", defaults={'path':''})
+def serve(path):
+    return send_from_directory(app.static_folder,'index.html')
 
 
 @app.route('/signup', methods=['POST'])
