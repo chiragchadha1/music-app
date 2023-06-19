@@ -24,7 +24,7 @@ function Login() {
             body: JSON.stringify(body),
         };
 
-        fetch('http://127.0.0.1:5000/login', requestOptions)
+        fetch('https://app.chirag.nyc/login', requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     return response.json().then((json) => {
