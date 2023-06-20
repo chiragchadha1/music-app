@@ -44,9 +44,10 @@ def close_db(e=None):
 def protected():
     return jsonify({'message': 'This is a protected route'})
 
-@app.route("/", defaults={'path':''})
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
 def serve(path):
-    return send_from_directory(app.static_folder,'index.html')
+    return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/signup', methods=['POST'])
