@@ -47,10 +47,12 @@ def protected():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
+    print(app.static_folder)  # print the static folder path
     if path != "" and not path.startswith('api/'):
         return send_from_directory(app.static_folder, 'index.html')
     else:
         return 'URL not found', 404
+
 
 
 
