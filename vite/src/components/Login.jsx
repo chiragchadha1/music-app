@@ -61,6 +61,7 @@ function Login() {
     return (
         <div className='container'>
             <h1 className='my-3'>Login</h1>
+            <p>Running in {process.env.NODE_ENV}.</p>
             <div className="form">
                 {show ? (
                     successful ? (
