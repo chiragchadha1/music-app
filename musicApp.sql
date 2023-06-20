@@ -97,6 +97,13 @@ CREATE TABLE PlaylistSongs (
     FOREIGN KEY (song_ID) REFERENCES Songs(song_ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+ALTER TABLE Songs ADD COLUMN song_name VARCHAR(100) NOT NULL AFTER song_id;
+
+ALTER TABLE Album ADD COLUMN album_name VARCHAR(100) NOT NULL AFTER album_id;
+
+ALTER TABLE Songs ADD COLUMN release_date DATE NOT NULL AFTER song_name;
+
+ALTER TABLE Album ADD COLUMN release_date DATE NOT NULL AFTER album_name;
 
 DELIMITER //
 
@@ -137,13 +144,13 @@ CREATE PROCEDURE Search(
 )
 BEGIN
     SET @search_query = CONCAT('%', query, '%');
-    SET @sql_statement = 'SELECT songs.*, album.name AS album_name, GROUP_CONCAT(artist.name) AS artist_names
-                          FROM songs 
-                            JOIN album ON songs.album_id = album.id 
-                            JOIN SongArtist ON songs.id = SongArtist.song_ID 
-                            JOIN artist ON SongArtist.artist_ID = artist.id
-                          WHERE songs.name LIKE ?
-                          GROUP BY songs.id';
+    SET @sql_statement = 'SELECT Songs.song_id AS id, Songs.song_name AS name, Album.album_name AS album_name, GROUP_CONCAT(Artist.artist_name) AS artist_names, 'song' AS type
+                            FROM Songs
+                            JOIN Album ON Songs.album_ID = Album.album_ID
+                            JOIN SongArtist ON Songs.song_id = SongArtist.song_ID
+                            JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID
+                            WHERE Songs.song_name LIKE ?
+                            GROUP BY Songs.song_id';
 ;
     PREPARE stmt FROM @sql_statement;
     EXECUTE stmt USING @search_query;
