@@ -138,23 +138,34 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE Search(
-    IN query VARCHAR(100),
-    IN table_name VARCHAR(100)
+CREATE PROCEDURE SearchAll(
+    IN search_query VARCHAR(100)
 )
 BEGIN
-    SET @search_query = CONCAT('%', query, '%');
-    SET @sql_statement = 'SELECT Songs.song_id AS id, Songs.song_name AS name, Album.album_name AS album_name, GROUP_CONCAT(Artist.artist_name) AS artist_names, 'song' AS type
-                            FROM Songs
-                            JOIN Album ON Songs.album_ID = Album.album_ID
-                            JOIN SongArtist ON Songs.song_id = SongArtist.song_ID
-                            JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID
-                            WHERE Songs.song_name LIKE ?
-                            GROUP BY Songs.song_id';
-;
-    PREPARE stmt FROM @sql_statement;
-    EXECUTE stmt USING @search_query;
-    DEALLOCATE PREPARE stmt;
+    SET @pattern = CONCAT('%', search_query, '%');
+
+    -- Search in Songs
+    SELECT Songs.song_id AS id, Songs.song_name AS name, Album.album_name AS album_name, GROUP_CONCAT(DISTINCT Artist.artist_name) AS artist_name, 'song' AS type
+    FROM Songs
+    LEFT JOIN Album ON Songs.album_ID = Album.album_ID
+    LEFT JOIN SongArtist ON Songs.song_id = SongArtist.song_ID
+    LEFT JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID
+    WHERE Songs.song_name LIKE @pattern OR Artist.artist_name LIKE @pattern OR Album.album_name LIKE @pattern
+    GROUP BY Songs.song_id
+
+    UNION ALL
+
+    -- Search in Artists table only
+    SELECT Artist.artist_id AS id, Artist.artist_name AS name, NULL AS album_name, NULL AS artist_name, 'artist' AS type
+    FROM Artist
+    WHERE Artist.artist_name LIKE @pattern
+
+    UNION ALL
+
+    -- Search in Albums table only
+    SELECT Album.album_id AS id, Album.album_name AS name, NULL AS album_name, NULL AS artist_name, 'album' AS type
+    FROM Album
+    WHERE Album.album_name LIKE @pattern;
 END //
 
 DELIMITER ;

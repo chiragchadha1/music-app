@@ -38,14 +38,25 @@ def login_user(username, password):
         cnx.rollback()
 
 # Function to search songs, artists, albums, or playlists
-def search(query, table_name):
+def search_all(search_query):
     try:
-        cur.execute(
-            f"SELECT * FROM {table_name} WHERE name LIKE %s",
-            ('%' + query + '%',)
-        )
-        results = cur.fetchall()
-        return results
+        cur.callproc("SearchAll", [search_query,])
+        for result in cur.stored_results():
+            rows = result.fetchall()
+            for row in rows:
+                id, name, type = row
+                if type == 'song':
+                    cur.execute('SELECT * FROM Songs WHERE song_id = %s', (id,))
+                    song_details = cur.fetchone()
+                    print('Song Details:', song_details)
+                elif type == 'artist':
+                    cur.execute('SELECT * FROM Artists WHERE artist_id = %s', (id,))
+                    artist_details = cur.fetchone()
+                    print('Artist Details:', artist_details)
+                elif type == 'album':
+                    cur.execute('SELECT * FROM Albums WHERE album_id = %s', (id,))
+                    album_details = cur.fetchone()
+                    print('Album Details:', album_details)
     except Error as e:
         print(f"An error occurred: {e}")
         cnx.rollback()
