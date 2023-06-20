@@ -6,8 +6,7 @@ import jwt
 import datetime
 import os
 
-
-app = Flask(__name__, static_url_path='', static_folder='../vite/dist')
+app = Flask(__name__, static_folder='../vite/dist')
 app.config["JWT_SECRET_KEY"] = "secret"
 jwt = JWTManager(app)
 CORS(app) #comment this on deployment
@@ -48,11 +47,18 @@ def protected():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-     path_dir = os.path.abspath("../vite/dist") #path react build
-     if path != "" and os.path.exists(os.path.join(path_dir, path)):
-         return send_from_directory(os.path.join(path_dir), path)
-     else:
-         return send_from_directory(os.path.join(path_dir),'index.html')
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def serve(path):
+#      path_dir = os.path.abspath("../vite/dist") #path react build
+#      if path != "" and os.path.exists(os.path.join(path_dir, path)):
+#          return send_from_directory(os.path.join(path_dir), path)
+#      else:
+#          return send_from_directory(os.path.join(path_dir),'index.html')
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -263,5 +269,5 @@ def get_playlist_songs():
         return jsonify({'response': 'Error in getting playlist songs'}), 500
 
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(use_reloader=True, port=5000, threaded=True)
