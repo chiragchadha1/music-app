@@ -137,13 +137,21 @@ CREATE PROCEDURE Search(
 )
 BEGIN
     SET @search_query = CONCAT('%', query, '%');
-    SET @sql_statement = CONCAT('SELECT * FROM ', table_name, ' WHERE name LIKE ?');
+    SET @sql_statement = 'SELECT songs.*, album.name AS album_name, GROUP_CONCAT(artist.name) AS artist_names
+                          FROM songs 
+                            JOIN album ON songs.album_id = album.id 
+                            JOIN SongArtist ON songs.id = SongArtist.song_ID 
+                            JOIN artist ON SongArtist.artist_ID = artist.id
+                          WHERE songs.name LIKE ?
+                          GROUP BY songs.id';
+;
     PREPARE stmt FROM @sql_statement;
     EXECUTE stmt USING @search_query;
     DEALLOCATE PREPARE stmt;
 END //
 
 DELIMITER ;
+
 
 DELIMITER //
 
