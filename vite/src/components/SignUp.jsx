@@ -38,7 +38,7 @@ function SignUp() {
                 body: JSON.stringify(body),
             };
 
-            fetch(`${URL}/signup`, requestOptions)
+            fetch(`${URL}/api/signup`, requestOptions)
                 .then((response) => {
                     if (!response.ok) {
                         return response.json().then((json) => {

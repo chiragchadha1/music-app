@@ -39,18 +39,22 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
-@app.route('/protected', methods=['GET'])
+@app.route('/api/protected', methods=['GET'])
 @jwt_required()
 def protected():
     return jsonify({'message': 'This is a protected route'})
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def serve(path):
-    return send_from_directory(app.static_folder, 'index.html')
+def catch_all(path):
+    if path != "" and not path.startswith('api/'):
+        return send_from_directory(app.static_folder, 'index.html')
+    else:
+        return 'URL not found', 404
 
 
-@app.route('/signup', methods=['POST'])
+
+@app.route('/api/signup', methods=['POST'])
 def signup():
     user_details = request.get_json()
     db = get_db()
@@ -71,7 +75,7 @@ def signup():
         print(e)
         return jsonify({"response": "Error in creating user: " + str(e)}), 400
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     user_details = request.get_json()
     db = get_db()
@@ -108,7 +112,7 @@ def login():
         db.close()
 
 
-@app.route("/search", methods=['GET'])
+@app.route("/api/search", methods=['GET'])
 def search():
     query = request.args.get('query')
     table_name = request.args.get('table_name')
@@ -123,7 +127,7 @@ def search():
         print(e)
         return jsonify({'response': 'Error in search process'}), 500
 
-@app.route("/like_song", methods=['POST'])
+@app.route("/api/like_song", methods=['POST'])
 def like_song():
     like_details = request.get_json()
     db = get_db()
@@ -137,7 +141,7 @@ def like_song():
         print(e)
         return jsonify({'response': 'Error in liking song'}), 500
 
-@app.route("/create_playlist", methods=['POST'])
+@app.route("/api/create_playlist", methods=['POST'])
 def create_playlist():
     playlist_details = request.get_json()
     db = get_db()
@@ -156,7 +160,7 @@ def create_playlist():
         print(e)
         return jsonify({'response': 'Error in creating playlist'}), 500
 
-@app.route("/follow_artist", methods=['POST'])
+@app.route("/api/follow_artist", methods=['POST'])
 def follow_artist():
     follow_details = request.get_json()
     db = get_db()
@@ -170,7 +174,7 @@ def follow_artist():
         print(e)
         return jsonify({'response': 'Error in following artist'}), 500
 
-@app.route("/add_song_to_playlist", methods=['POST'])
+@app.route("/api/add_song_to_playlist", methods=['POST'])
 def add_song_to_playlist():
     playlist_song_details = request.get_json()
     db = get_db()
@@ -187,7 +191,7 @@ def add_song_to_playlist():
         print(e)
         return jsonify({'response': 'Error in adding song to playlist'}), 500
 
-@app.route("/delete_song_from_playlist", methods=['POST'])
+@app.route("/api/delete_song_from_playlist", methods=['POST'])
 def delete_song_from_playlist():
     playlist_song_details = request.get_json()
     db = get_db()
@@ -204,7 +208,7 @@ def delete_song_from_playlist():
         print(e)
         return jsonify({'response': 'Error in deleting song from playlist'}), 500
 
-@app.route("/update_song_details", methods=['POST'])
+@app.route("/api/update_song_details", methods=['POST'])
 def update_song_details():
     song_details = request.get_json()
     db = get_db()
@@ -222,7 +226,7 @@ def update_song_details():
         print(e)
         return jsonify({'response': 'Error in updating song details'}), 500
 
-@app.route("/update_user_details", methods=['POST'])
+@app.route("/api/update_user_details", methods=['POST'])
 def update_user_details():
     user_details = request.get_json()
     db = get_db()
@@ -244,7 +248,7 @@ def update_user_details():
         print(e)
         return jsonify({'response': 'Error in updating user details'}), 500
 
-@app.route("/get_playlist_songs", methods=['GET'])
+@app.route("/api/get_playlist_songs", methods=['GET'])
 def get_playlist_songs():
     playlist_id = request.args.get('playlist_id')
     db = get_db()

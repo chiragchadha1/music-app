@@ -26,7 +26,7 @@ function Login() {
             body: JSON.stringify(body),
         };
 
-        fetch(`${URL}/login`, requestOptions)
+        fetch(`${URL}/api/login`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     return response.json().then((json) => {
