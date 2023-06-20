@@ -2,8 +2,10 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { config } from '/Constants';
 
 function SignUp() {
+    const URL = config.url;
     const {
         register,
         watch,
@@ -36,7 +38,7 @@ function SignUp() {
                 body: JSON.stringify(body),
             };
 
-            fetch('https://app.chirag.nyc/signup', requestOptions)
+            fetch(`${URL}/signup`, requestOptions)
                 .then((response) => {
                     if (!response.ok) {
                         return response.json().then((json) => {

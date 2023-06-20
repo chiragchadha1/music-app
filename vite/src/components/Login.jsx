@@ -3,8 +3,10 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSignIn } from 'react-auth-kit';
+import { config } from '/Constants';
 
 function Login() {
+    const URL = config.url;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
     const [serverResponse, setServerResponse] = useState('');
@@ -24,7 +26,7 @@ function Login() {
             body: JSON.stringify(body),
         };
 
-        fetch('https://app.chirag.nyc/login', requestOptions)
+        fetch(`${URL}/login`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     return response.json().then((json) => {

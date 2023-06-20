@@ -1,10 +1,10 @@
 import { Nav, Navbar, Container, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useIsAuthenticated, useAuthUser, useSignOut } from 'react-auth-kit';
+import { useIsAuthenticated, useSignOut } from 'react-auth-kit';
 
 function NavBar() {
     const isAuthenticated = useIsAuthenticated();
-    const authUser = useAuthUser();
+    // const authUser = useAuthUser();
     const signOut = useSignOut();
 
     const handleSignOut = () => {
@@ -23,18 +23,23 @@ function NavBar() {
                         </LinkContainer>
                     </Nav>
                     {!isAuthenticated() && (
-                            <LinkContainer className="me-3" to="/signup">
-                                <Nav.Link>Sign Up</Nav.Link>
-                            </LinkContainer>
+                        <LinkContainer className="me-3" to="/signup">
+                            <Nav.Link>Sign Up</Nav.Link>
+                        </LinkContainer>
                     )}
                     {!isAuthenticated() ? (
                         <LinkContainer to="/login">
                             <Nav.Link>Login</Nav.Link>
                         </LinkContainer>
                     ) : (
-                        <div className="ml-auto">
-                            <Navbar.Text className='pe-3'>Hello, {authUser().username}</Navbar.Text>
-                            <Button variant="outline-danger" onClick={handleSignOut}>Sign Out</Button>
+                        <div className="ml-auto navbar-nav">
+                            {/* <Navbar.Text className='pe-3'>Hello, {authUser().username}</Navbar.Text> */}
+                            <LinkContainer to="/profile" className='pe-3'>
+                                <Nav.Link>Profile</Nav.Link>
+                            </LinkContainer>
+                            <Button variant="outline-danger" onClick={handleSignOut}>
+                                Sign Out
+                            </Button>
                         </div>
                     )}
                 </Navbar.Collapse>
