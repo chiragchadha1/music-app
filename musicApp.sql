@@ -239,10 +239,25 @@ END //
 
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS GetUserIdByUsername;
+DELIMITER //
+
+CREATE PROCEDURE GetUserIdByUsername(
+    IN old_username VARCHAR(50),
+    OUT user_id INT
+)
+BEGIN
+    SELECT user_id INTO user_id FROM User WHERE username = old_username;
+END //
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS UpdateUserDetails;
+
 DELIMITER //
 
 CREATE PROCEDURE UpdateUserDetails(
-    IN user_id INT,
+    IN p_user_id INT,
     IN new_email_id VARCHAR(255),
     IN new_username VARCHAR(50),
     IN new_password VARCHAR(255),
@@ -251,12 +266,19 @@ CREATE PROCEDURE UpdateUserDetails(
     IN new_date_of_birth DATE
 )
 BEGIN
-    UPDATE User
-    SET email_id = new_email_id, username = new_username, password = new_password,
-    first_name = new_first_name, last_name = new_last_name, date_of_birth = new_date_of_birth
-    WHERE user_id = user_id;
-    COMMIT;
+    -- First, ensure that the new_username isn't already used by another user
+    IF NOT EXISTS (SELECT * FROM User WHERE username = new_username AND user_id != p_user_id) THEN
+        UPDATE User
+        SET email_id = new_email_id, username = new_username, password = new_password,
+        first_name = new_first_name, last_name = new_last_name, date_of_birth = new_date_of_birth
+        WHERE user_id = p_user_id;
+        COMMIT;
+    ELSE
+        -- Handle the error appropriately. This is just an example.
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Username already exists for another user';
+    END IF;
 END //
+
 
 DELIMITER ;
 

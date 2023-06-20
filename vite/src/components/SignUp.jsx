@@ -203,6 +203,7 @@ function SignUp() {
                             required
                             type="password"
                             placeholder="Password"
+                            autoComplete="on"
                             {...register('password', {
                                 required: 'Password is required',
                                 minLength: {

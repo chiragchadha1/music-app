@@ -90,7 +90,7 @@ function Login() {
 
                     <Form.Group className='mb-3'>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control required type="password" placeholder='Password' {...register('password', { required: 'Password is required' })} />
+                        <Form.Control required type="password" placeholder='Password' autoComplete="on" {...register('password', { required: 'Password is required' })} />
                         {errors.password && (
                             <div className="my-3 alert alert-danger" role="alert">
                                 {errors.password.message}

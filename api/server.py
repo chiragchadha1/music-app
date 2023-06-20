@@ -51,16 +51,8 @@ def serve(path):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def serve(path):
-#      path_dir = os.path.abspath("../vite/dist") #path react build
-#      if path != "" and os.path.exists(os.path.join(path_dir, path)):
-#          return send_from_directory(os.path.join(path_dir), path)
-#      else:
-#          return send_from_directory(os.path.join(path_dir),'index.html')
 
-@app.route('/api/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'], strict_slashes=False)
 def signup():
     user_details = request.get_json()
     db = get_db()
@@ -81,13 +73,12 @@ def signup():
         print(e)
         return jsonify({"response": "Error in creating user: " + str(e)}), 400
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'], strict_slashes=False)
 def login():
     user_details = request.get_json()
     db = get_db()
     cur = db.cursor()
     try:
-        # cur.callproc("LoginUser", (user_details['username'], user_details['password']))
         cur.callproc("LoginUser", (user_details['username'], user_details['password']))
         for result in cur.stored_results():
             user = result.fetchone()
@@ -96,9 +87,10 @@ def login():
                     'user_ID': user[0],
                     'email_id': user[1],
                     'username': user[2],
+                    'password': user[3],
                     'first_name': user[4],
                     'last_name': user[5],
-                    'date_of_birth': user[6]
+                    'date_of_birth': user[6],
                 }
                 token = create_access_token(identity=user_data['user_ID'])
                 return jsonify({
@@ -118,7 +110,7 @@ def login():
         db.close()
 
 
-@app.route("/api/search", methods=['GET'])
+@app.route("/api/search", methods=['GET'], strict_slashes=False)
 def search():
     query = request.args.get('query')
     table_name = request.args.get('table_name')
@@ -133,7 +125,7 @@ def search():
         print(e)
         return jsonify({'response': 'Error in search process'}), 500
 
-@app.route("/api/like_song", methods=['POST'])
+@app.route("/api/like_song", methods=['POST'], strict_slashes=False)
 def like_song():
     like_details = request.get_json()
     db = get_db()
@@ -147,7 +139,7 @@ def like_song():
         print(e)
         return jsonify({'response': 'Error in liking song'}), 500
 
-@app.route("/api/create_playlist", methods=['POST'])
+@app.route("/api/create_playlist", methods=['POST'], strict_slashes=False)
 def create_playlist():
     playlist_details = request.get_json()
     db = get_db()
@@ -166,7 +158,7 @@ def create_playlist():
         print(e)
         return jsonify({'response': 'Error in creating playlist'}), 500
 
-@app.route("/api/follow_artist", methods=['POST'])
+@app.route("/api/follow_artist", methods=['POST'], strict_slashes=False)
 def follow_artist():
     follow_details = request.get_json()
     db = get_db()
@@ -180,7 +172,7 @@ def follow_artist():
         print(e)
         return jsonify({'response': 'Error in following artist'}), 500
 
-@app.route("/api/add_song_to_playlist", methods=['POST'])
+@app.route("/api/add_song_to_playlist", methods=['POST'], strict_slashes=False)
 def add_song_to_playlist():
     playlist_song_details = request.get_json()
     db = get_db()
@@ -197,7 +189,7 @@ def add_song_to_playlist():
         print(e)
         return jsonify({'response': 'Error in adding song to playlist'}), 500
 
-@app.route("/api/delete_song_from_playlist", methods=['POST'])
+@app.route("/api/delete_song_from_playlist", methods=['POST'], strict_slashes=False)
 def delete_song_from_playlist():
     playlist_song_details = request.get_json()
     db = get_db()
@@ -214,7 +206,7 @@ def delete_song_from_playlist():
         print(e)
         return jsonify({'response': 'Error in deleting song from playlist'}), 500
 
-@app.route("/api/update_song_details", methods=['POST'])
+@app.route("/api/update_song_details", methods=['POST'], strict_slashes=False)
 def update_song_details():
     song_details = request.get_json()
     db = get_db()
@@ -232,15 +224,28 @@ def update_song_details():
         print(e)
         return jsonify({'response': 'Error in updating song details'}), 500
 
+
+def get_user_id_by_username(username):
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.execute("SELECT user_id FROM User WHERE username = %s", (username,))
+        result = cur.fetchone()
+        return result[0] if result else None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        db.rollback()
+
 @app.route("/api/update_user_details", methods=['POST'])
 def update_user_details():
     user_details = request.get_json()
+    user_id = get_user_id_by_username(user_details['username'])
     db = get_db()
     cur = db.cursor()
     try:
         cur.callproc("UpdateUserDetails", (
-            user_details['user_id'],
-            user_details['email_id'],
+            user_id,
+            user_details['email'],
             user_details['username'],
             user_details['password'],
             user_details['first_name'],
@@ -248,11 +253,13 @@ def update_user_details():
             user_details['date_of_birth']
         ))
         db.commit()
-        return jsonify({'message': 'User details updated successfully'})
+        return jsonify({'response': 'User details updated successfully'})
     except Exception as e:
         print("Error: unable to update user details")
         print(e)
-        return jsonify({'response': 'Error in updating user details'}), 500
+        # Return error message in response
+        return jsonify({'response': 'Error in updating user details', 'error': str(e)}), 500
+
 
 @app.route("/api/get_playlist_songs", methods=['GET'])
 def get_playlist_songs():
