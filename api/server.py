@@ -4,6 +4,7 @@ from flask_cors import CORS #comment this on deployment
 import mysql.connector
 import jwt
 import datetime
+import os
 
 
 app = Flask(__name__, static_url_path='', static_folder='../vite/dist')
@@ -44,19 +45,13 @@ def close_db(e=None):
 def protected():
     return jsonify({'message': 'This is a protected route'})
 
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
-#     print(app.static_folder)  # print the static folder path
-#     if path != "" and not path.startswith('/api/'):
-#         return send_from_directory(app.static_folder, 'index.html')
-#     else:
-#         return 'URL not found', 404
-@app.route('/')
-def home():
-    return 'Home Page'
-
-
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/api/signup', methods=['POST'])
