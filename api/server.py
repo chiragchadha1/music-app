@@ -44,14 +44,17 @@ def close_db(e=None):
 def protected():
     return jsonify({'message': 'This is a protected route'})
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    print(app.static_folder)  # print the static folder path
-    if path != "" and not path.startswith('api/'):
-        return send_from_directory(app.static_folder, 'index.html')
-    else:
-        return 'URL not found', 404
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def catch_all(path):
+#     print(app.static_folder)  # print the static folder path
+#     if path != "" and not path.startswith('/api/'):
+#         return send_from_directory(app.static_folder, 'index.html')
+#     else:
+#         return 'URL not found', 404
+@app.route('/')
+def home():
+    return 'Home Page'
 
 
 
