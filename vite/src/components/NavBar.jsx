@@ -23,7 +23,7 @@ function NavBar() {
                         </LinkContainer>
                     </Nav>
                     {!isAuthenticated() && (
-                            <LinkContainer className="mx-3" to="/signup">
+                            <LinkContainer className="me-3" to="/signup">
                                 <Nav.Link>Sign Up</Nav.Link>
                             </LinkContainer>
                     )}
@@ -33,7 +33,7 @@ function NavBar() {
                         </LinkContainer>
                     ) : (
                         <div className="ml-auto">
-                            <Navbar.Text className='px-3'>Hello, {authUser().username}</Navbar.Text>
+                            <Navbar.Text className='pe-3'>Hello, {authUser().username}</Navbar.Text>
                             <Button variant="outline-danger" onClick={handleSignOut}>Sign Out</Button>
                         </div>
                     )}

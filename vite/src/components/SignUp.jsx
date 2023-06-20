@@ -156,7 +156,7 @@ function SignUp() {
                             {...register('dob', {
                                 required: 'Date of Birth is required',
                                 pattern: {
-                                    value: /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
+                                    value: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$/,
                                     message: 'Date of Birth is invalid',
                                 },
                             })}
@@ -208,7 +208,7 @@ function SignUp() {
                                     message: 'Password must have at least 8 characters',
                                 },
                                 pattern: {
-                                    value: /^(\S)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])[a-zA-Z0-9~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]{10,16}$/, //eslint-disable-line
+                                    value: /^^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, //eslint-disable-line
                                     message:
                                         'Password should include at least one uppercase, one lowercase, one numeric value and one special character',
                                 },
