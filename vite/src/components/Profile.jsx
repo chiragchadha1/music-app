@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import { useIsAuthenticated, useAuthUser } from 'react-auth-kit';
+import { useIsAuthenticated, useAuthUser, useSignOut } from 'react-auth-kit';
 import { useForm } from 'react-hook-form';
 import { config } from '/Constants';
 import { Form, Button, Alert } from 'react-bootstrap';
@@ -20,6 +20,8 @@ function Profile() {
     const [serverResponse, setServerResponse] = useState('');
     const [successful, setSuccessful] = useState(undefined);
     const [formattedDOB, setFormattedDOB] = useState('');
+
+    const signOut = useSignOut();
 
     useEffect(() => {
         if(userData){
@@ -75,6 +77,43 @@ function Profile() {
                 setServerResponse(data.response);
                 setShow(true);
                 setSuccessful(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                setServerResponse(err.message);
+                setShow(true);
+                setSuccessful(false);
+            });
+    };
+
+    const onDeleteUser = () => {
+        // Prepare the request options for the delete request
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Include the user's ID or other unique identifier in the request body
+            body: JSON.stringify({ id: userData.id }),
+        };
+
+        fetch(`${URL}/api/delete_user`, requestOptions)
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((json) => {
+                        console.error('Error in request:', json.message);
+                        throw new Error(json.response);
+                    });
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data.response);
+                setServerResponse(data.response);
+                setShow(true);
+                setSuccessful(true);
+                // Clear the user's authentication token and redirect them
+                signOut();  // You need to get signOut function from useSignOut() hook.
             })
             .catch((err) => {
                 console.log(err);
@@ -261,6 +300,7 @@ function Profile() {
                         <Button type="submit" variant="primary">
                             Submit
                         </Button>
+                        <Button variant='danger' onClick={onDeleteUser}>Delete Account</Button>
                     </Form.Group>
                 </form>
             ) : (
@@ -280,7 +320,7 @@ function Profile() {
                     <p>
                         <strong>Date of Birth:</strong> {formattedDOB}
                     </p>
-                    <button onClick={() => setEditMode(true)}>Edit</button>
+                    <Button variant='primary' onClick={() => setEditMode(true)}>Edit</Button>
                 </>
             )}
         </div>
