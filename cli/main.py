@@ -148,7 +148,6 @@ def create_playlist():
         cur.callproc("CreatePlaylist", (
             playlist_details['name'],
             playlist_details['author'],
-            playlist_details['duration'],
             playlist_details['user_ID']
         ))
         db.commit()

@@ -142,7 +142,7 @@ function Profile() {
                     ) : (
                         <Alert variant="danger" onClose={() => setShow(false)} dismissible>
                             <Alert.Heading>Error!</Alert.Heading>
-                            <p>{serverResponse}. Please sign out and login to see changes.</p>
+                            <p>{serverResponse}</p>
                         </Alert>
                     )
                 ) : (
