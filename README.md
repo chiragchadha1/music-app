@@ -193,7 +193,6 @@ The CLI provides the following features:
 1. Navigate to the cli directory:
 ```bash
 cd cli
-
 ```
 6. Run the CLI application:
 *If `python3` does not work, try `python`*
