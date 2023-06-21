@@ -74,7 +74,7 @@ CREATE TABLE Playlist (
     playlist_ID INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     author VARCHAR(100),
-    duration INT,
+    duration INT DEFAULT 0,
     cover_image BLOB,
     playlist_like_count INT DEFAULT 0,
     user_ID INT,
