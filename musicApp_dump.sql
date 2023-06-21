@@ -20,7 +20,7 @@ SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
 SET @@SESSION.SQL_LOG_BIN= 0;
 
 --
--- GTID state at the beginning of the backup 
+-- GTID state at the beginning of the backup
 --
 
 SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
@@ -77,7 +77,7 @@ CREATE TABLE `Artist` (
 
 LOCK TABLES `Artist` WRITE;
 /*!40000 ALTER TABLE `Artist` DISABLE KEYS */;
-INSERT INTO `Artist` VALUES (1,'88glam',0,NULL),(2,'The Weeknd',1,NULL),(3,'Playboi Carti',0,_binary '﻿'),(4,'Lil Uzi Vert',0,NULL),(5,'Drake',1,NULL),(6,'Kanye West',0,NULL),(7,'Kendrick Lamar',1,NULL),(8,'Tame Impala',0,NULL),(9,'Mac Miller',0,NULL),(10,'Frank Ocean',0,NULL),(11,'Metallica',0,NULL),(12,'Nirvana',0,NULL),(13,'Fred Again..',0,NULL),(14,'The Beatles',0,NULL),(15,'Ken Carson',0,NULL),(16,'Travis Scott',1,NULL),(17,'Harry Styles',0,NULL),(18,'Taylor Swift',0,NULL),(19,'Lil Baby',0,NULL),(20,'Lil Durk',0,NULL),(21,'Autumn!',1,NULL),(22,'Lil Nas X',0,NULL),(23,'Lil Tecca',0,NULL),(24,'Ed Sheeran',0,NULL),(25,'Billie Eilish',0,NULL),(26,'Ariana Grande',0,NULL),(27,'Justin Bieber',0,NULL),(28,'Dua Lipa',0,NULL),(29,'Doja Cat',0,NULL),(30,'David Guetta',0,NULL),(31,'Don Toliver',0,NULL),(32,'Kaytranada',0,NULL),(33,'SZA',0,NULL),(34,'Brent Faiyaz',0,NULL),(35,'Bad Bunny',0,NULL),(36,'J Balvin',0,NULL),(37,'Destroy Lonely',0,_binary '�\��\�\0JFIF\0\0H\0H\0\0�\�\0C\0\n\n\n\r\r�\�\0C		\r\r��\0\0�\0�\0�\�\0\0\0\0\0\0\0\0\0\0\0\0\0\0�\�\0>\0\0\0\0\0!1A\"Qaq�2��#B���3b\�\�%4RSrs���\�\0\0\0\0\0\0\0\0\0\0\0\0�\�\0$\0\0\0\0\0\0\0\0\0!1A\"aQ2q�\�\0\0\0?\0�!6\�\�V��\�k�c�sj�T���V��~\�\�*\�Ih*O\�# �]\�[Ւ�\�7��\�ؚ���\�J\�\�7��K�K�\�\0|\�c�\�U$��\�XuA �ПI?*@\�X�\�0��\���V\�\\oh�G\�ޠG\�֖\�)ڍ��\�PB]\�M�\n����w@�i�\�\�ZX[�\"B7&����\�+Z�\�TJ�$�O֫<%,%ƻ��\�����(�\�\�8�H\�\�\rIJJ\�	P\�U\�\0�J]N��\n���\�QPRBc\�TyCj	�љ�EZ\\\�0y�㚂�պ��`Nd��EiNm��\�IP$O�rh&�\�q\\A�ہ\�����~\�\'~\�pPy^rP\0\�%<\Znإ��\��l(����4Cd((v��K�8\�M��-۹p)/I\n�\�;W,��1\�dt\����9�S�j�\��i\�\�$� \�J\�m]j��wG�\�Ԗ�\�Uz��\�^YJG9�\�jܻy\�2t�tgGn\�IJQ�\�+\�n\�\��\�B�&3Y��\�\��{T�v��_R�-�l��\�II\0g��q[�\�)giZF�椅�#�����\�n�\"2H\�\�Ka*$\�\�\�M%!H1��$�\n�*�>�1�\0T�I�A�U\n\�Kd\r�L�s?اa���c��֖˷RfAL�GH\"в\�IJ�\�	��U^H�\�)J��?�Ң-�\�	>�\�Oa�-\'Ѹ\�\�E�}\n��\n\n\��D��\�[\�4�J�$n�k�w\\:a>�z渝\�\� <�\�m�@��#�Gϟoz\�&\�nZV5\rs_ֈ��m8%6��(��ָs��\�qo���\�\r�\�D�$���\�:ʍ�u�����\�Q��BD��N*˞=-VAg\�:b�o\'V\r�\'yHA3\�	2\rf\�t\�9{qY\����5ۈ��(�k��y�΁��\��\����ʑb�\"3\��M\"6�$-2;f��\� �6Hrq1\�]*)JAڡf(��������TP��\�\�j!�p���\�g5�5�T�\�,�;��&�q��+p\�ؓ@��\n\�!S���MnRD�9���\�z\�=��$O�4GT�M��ۮ\�F\�Q���\�q\\,\�w�\��\�w]�w�\�(�\�Xˎ\Z�M\�֑\�6̖Ϙ`\���=�]r\�\�>��/�EUTa\nZ��#�QQ�y\�2�/0v8ڂ�~�\�s�óՌ��\�\�޴ז\�\�A\�-)��\�?l~U�\�\\��Vt[�\��~ČWX\�\�JACK\0�D\�s�c�A�TŐSA\�0\08S\�}@qH<\��	\"?��\�\�\n!#n�Pk	�RPB�9��\�j\�R-BB�pE\�nL�$�*\��@5��@;��T\�\"YJ��?z�S)�\nI\�>\�j&��o�ꀭ!�\��+Bm\�\�\�P#�w����r��k\�:x-\�\'wq�k�0�v�l\�j\�ݴݾ�\�I�$���\�\�\��\�&�J�\�ß5Z\�\�~;t��q-�7�hIQ0\�% }Ȭ\�\�\�����\�\��\��\0���\0P���	�Ӗ\�YBl4u�\�\�!\r��T��	0*�\'�?O�5���\0\�./\�z�\0��\�n9i�6~еRa\'\�/�ߎf��\0��\"#\\\�4~�\�tmE�6\��\�\��^r\�qe;֒��\�r+Z�p\�/�\�g=��q{fˉ�\�v\��b~P�u�6��|=�H�\�1�����4ڕh\�\�\�\�2;WE0*L�\��\�\�\� ���\Z�)*R�\��en<H#d��j��IX�\�\�Dm-�Z\�JV��\�\�?ٮ�\�=3\�.l\��\�6��V��N\'\���A ��N\�\�\���\�\r\�\�2\�*\0�r���4!�`��C��DB��q�m/�\�Mū�uG�\�\�W<\�\�ݼWYk�g\�3�ON�\�\�(iJU��\�\�[G\"عH}{�\0�G\�\Z\�p�WL���x��\n[�z��\'\0~dQ|�\0�.���\�\rw�ٵ٪�|�k�[���j�e,_�\�(ޥD�Kj=�\�-Ӷ^;0�|�A�\�Qŧ�\Z\�\�4�\0����Һr\�\�W\�\�i]�\�}O�N.\�ٝfW\�J\ZZ�s8=\�Ma�;T\�f���O�\0�kq\��\�m\��� \0~�\�(>YZ�JH\�\��QOy�݅3\�8��:r\�B���~tq������4\��\�<���vKaI��@�\�+�fB})\�P5Mn\�r��\�P	L��LM7RB} �#���\\�O�΁���ձc\�A\���\�K�ӣ\�zǤ<A�\���۶�7^\�kz\�^H}�g\�xB��\�V�0H\�\�N�\�����t/�\"\��Sih\�N���q7�z�ñk椂��\�\�R��\0��F\�bj{\�m��{���Ԏhϱ�Z]�\�M����\�d��\n\�yY\�A{���Gz�˖��\�0���5�\0C#B:�|1\�M\�֭̿�ު\�d\��R�\�I&=뿿�Fm\�7���Ph\�К�\�t�K\�ҴkAoo\�\�ʜP�Q1V]��ɏ\�Ӭ4+.�՞\�\��]<�EVn\��\0�Y\0,̔����\��0\�U�3�\�\�ٔ�ҡ\�kq���\�\�8\0?��u\�@��fv�Ϸzn\�ހ4�a3\���;A���#\�IV\�DN v�6�� ��EtlĪ�2b&�{+	J�4\rP\�\�	�I\�P5树��� JI\�1P\�\�6��\��	\�\�\�\�R\�E�@\����\�ǝq\�Z` !nl�B=C\0n&9\�ykэ\�I�\�\�Yijop\�LMr����r滪9u���\�)Z���\��\�9��R8\���\�F�\������T�Y\�Q���1\�Ϫ�\��gwV\�%f\�,���]�\�Hc\�O�9\�Z���\�}m�\�2�\�T�n(BV;�V�:�t�\�Z�ART\�\�`����9\�)�9MI䧁j(��D�w�\�\�nT\�\' ��4�\��O`:~��\��T\n\�B4\�RI\�g��\r\�nN�L�ރ\�Bd��{\����A3D�b�@�v��Gj�S�5&��9p�p\�f (�\�0q���]�nI�I�}M:-\��\��wځ.-K\0\�O��\�{v\�+q�N\\֟6�J\0�)$(W7�]v�Y\�\r�HZ�a��ß���\���Kü�]3�z�\��\�}!�p����)�/&w׷�%W!t�8�I�3��Mkn�ƅm\����\�&\�\�+\�I�-2�\�\���/�\�3R\�^ܾ���x�f\�6��JJ�~AD}��R\�\�\�/�S��mD��f�\����N\�#\�Zh@��1@�AL�\'�1@4\�qP\�\�R\0�\���c9�\�ԭ�%�\n�\�\�[j$!\\�`�z��\��\���\�\�\�@;�GqA\�\�uuY��mhm��%G�\�W+mṩ6����)\r\�z��r\�m���\�i&v��1ߟ���޹\�k�\�E=a��Uӿ��gM]\�e\�e�B\�\�Oh�\'ܐj�a\�\����\�\��ù-����\�\\%{}75Ue\��w`C��H*LD��\�\�הN��}�\0;Q$%>���{I\�\�\�\�\�\�\�Z\�/U\���`��(\"3\�֤n�\�\�\�]\�����݇%���,I��I��\0\�I�\�K6]\��\�m׵J@b\�V�4;D�}�5�{L�qt-MZS\�]�]#�[캉����\�[uXt>\�2y��RT�\�$�=�P\�P�$�=����N\��\��4Vv�Bf=\�Qg)\�\�\nTDϽU�g\�\�($8�@ \�80{\����6\�CEŵ�\�N\��[j\�\�W��f䖳{\��k�9\��$\�Ϲ�W\r/�pZ\��������@�Gx�j�K����\�\�#�kx\�-���b�9\�\�L�>KH�o˳\�ڇ\�\�k:s��O-�\�M�\��k�(z�����2��\�\��\�N�-���j\r4X\�,S�9�A��Dc�\�=Y\�w�\�gG#�5\�M�qj�j�C�vcp���ֵ1\��c/.\�n�\0�c�_�oz���.І��<��i��\�/�n~\�p\\_	IW|q��\�\�-ɦK\�v��g\�{R�qE�_/\�\�\n��\n\�ځ�!&�|y\�{�z�\��RS�|]yn\���\0/j�~�\0Z\�#W(��\�\�\�\\l(\�QH\�c�i\�4�\�ܕG҃�����	28\�YWkŕ\�.-дz����FP[���\�UH\�\�eC<&���8�A\'RJ\�)ͩO\�\r�\�j�ct�f@\�Wh���\�/\�\�\'N�p�t�w�Ԝ�� |Ͽ�KY�\\2I���I<Ee20{������k�\�ie��X[n\'\nB�Ѐ~\�`�o\��\�:[�t\�\�l\�:�ȷ\�-\�z\�\�u�\�\r�)P\�E~�Z\�`�\'[\�,OV�љ�z\�W\�uThìY86��\0\��܏�\�\�Q�>�\����ڒ-zsFP\�\0\�\�\�6�\��\n\0\r�)\�{�RDLP��\�\�W\�tG��Q\�6ע�͍Q\��KQr\�\�%��nrB_V	���8��ix�\0p0(掮MD!@\��ڂ\�Ѻ���eF`H�E�km��IQ\�y[h@�\�v�A\�m\�J�s@Ѓ$\�\�z\�<[�UL\�e�ޤ�[X��Q�\��?$�\'��\�e\'��lO��-܃\��V�ڼ\�\Zv�\�j�\�G����U�\�\'\r\�${G�c�9\�\�o�x�\�\� �2\�Zf��u~�1�;P��j�\0Ou�%%�J��v&=��\\Yӟ\�\�%վ/$�\�к1�\�_ߵlՖ�\�J�HBX\���\�5	-q�`�\�_]�N�\�\�I\��&n\\\�S\�s�)D�R\��˖��\�&\n�c�(\Z\��*�\�=pm�VH1&&�\Z\"%&κ6k�J\�18��rّ*\���\�\�!��w\�\�Eq��σ\�/Gdm��Z|e�\\�=<\�֔�\0j!dg�p<��N)��\�DZU\�|w\�ވѝ\�4>���ҝIB�\n���%IO\'\0ME�Ϋ�վ-u�]\�\�\�uR\�:���mn�\�#�Ba2\'1چ\�S�\�\�j24	ޠ񝪠�3A\�&Gʀ+\�xј�\�iL��\Z��J�\�6b\�F>\��EՋQ�\nܒ�\�*�ǉ=\�*��9�*#\�\�\r2�I}��y	�\0�f�\�\��?�sd���P9*&�\�GnkC��P,\�P�Y\nj\�$sD63@��TQڕ}(?�\�rh\"(yoO��\rIp�`Ӂ%D��j\�\Z�-Q\'�\��9U�^(\0��`sUI�)`��\�\�DQ�B���F\��!j8\����\�j��k]�1�P5�L�(\n��\�֔��j�D9=�\�ń䚈B3@\��\�p\�\�\�=\"U�(\��\">?yP]:n\�J\�ґ�\�\�j&�\�ؿT�D\n��6˨d�M�\�)\�ZeԧxT�\�A?�T��b\�Z��ZmҀ�-9O\�}�\�k*�\���8\�`S�d{VY<$@\�v�19��rkJ�\�\�B�E��Ua�15Li\�2�G5 <c��i^JJ�\�\n��k&�\r�.�\��v�v�\�\�Z�\�q\�[�5\�mR�\0��+�\�\�R�jI\�`\�#4�KE�\rɘ�ڂ%���-\�\�\�AȂk9լ{N\�zoK��\�Y4\�ٸ�6�\'�^_k>��><,\�	\�^h6V%�\Z}�\��\�	?#I�K���rn2U�	��JgbW	�\�w��u-BRsZCP�ɩ�\�*�J#\�\�\�?��\�%Q\r�ӰM6�b\�:��ˠ)*\���\�\�L5\�6ݴ>�\�ś�i�iy��RLr~U\�\��\0_[0\�\�R\�\�S�	mHJDEX圚f\�\�\�\0L�5\�>f]�R��l\�u\nVW1\�~�Gi�Zu\�U\�\�(<��$��\�\�Ƃ6��\�\�G\�\Z\�],\�;�\�,�$���$��\0��׻�z��\�n��P�9@>³;t\�\�.\���\�]W���\�\�+�8G~\�G�J�BB�X��A��\���\�P*	R�H<�pvRU�\�Y\�qӟq\�\�O��\�a{\�^h���\�;�w����\"e#t\��\�\�ϖ�Q\��k��\0\�\����R�U�\�]B(�*LGʊ�\�ڊ�\�\��6��K\n �pS�5D\rHo�pL\�RBg\�Y˥\�n�\�?dՕ������y\������IÍ\��\�\�N(:cj�7E\\9�~{�+1�d�ܬ�c\�^��PP1#5G��!DЄ�	�HBNMA\� N\'������\��GT}=j��\�%h��Q\�=�\�x��\�\�\�\���.m\��\�kJ�pGh�K�\���۬5�6�0k\�2��-{�a$����%J\0#�?�\�'),(38,'Yeat',0,_binary '�\��\�\0JFIF\0\0\0\0\0\0�\�\0�\0\n\Z\Z\Z!.%+!&8&+/1555\Z$;@;4?.451\Z\Z4!!!4144114=444141444444414414444?1144444444444?44114?��\0\0\�\0\�\"\0�\�\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0�\�\0F\0\0\0\0\0!1AQ\"aq�2��Br���#Rb\�გ\�3���$45cs���\��\�\0\0\0\0\0\0\0\0\0\0\0\0\0�\�\0 \0\0\0\0\0\0\0\0\0\01!AQBq�\�\0\0\0?\0\�Ў�!�B8@Q\�Њ8�� (G�2!@P�\�0�(\�8�#f(\n)(�+B8@��p�� (G\n�@P��1hI��H%Q\�\r�\��\"ׁU�@��\�s��]����Uv�\���\09ع$���\�ll\�ݮ��\��xd !q\�7.E��E��e`ok\�y\�ӎ\�s�Ed\�\�p�\�\���\Z������ӳ\�Ȫ���	Vf[\�n�[�����\�qJ4�,\�\�Y���B����\�\�\�1r[]X܌ǩߙ2I�ǿ�\�\��\�\�\�zN��슕�\�\�\n]�\�=�\��\�\�\�\�+\�T�P�/;���;\�c\�:�f��S�d\� �\�L\�|��`u_=G[I�\�a,�\0\�J&\�^\�\�\�m.I\ntz�7\"W�[1*U��zڃ}E�\�2�@CB+G\n)#������\�B8@��BЀB��\��\�;AR�u��R\��d��$�\�u?\r�ܷ\�o��\�\�0�w�\�R\��B�,\�h��\�Tsm�\�	\��Mr\�\�ݝ�\�N�\��`R��\�\�\�\�yD\\v\�N�������\�}I�z\�\�\�i\�2\�\�ß��\Z\�5�\�K�^A��xp\�Y\�����5\���%\��@�� \�q\�/kT\n���-{\0Y۾!\�ם��\�wP\�\�8r\��E��\0I�<�.�˪\�}�q\�G�Wl\�G@9�g\�9�u��\�@�PȈ\�b0\�@\�`c��#��B8\n��)b+�#T�l�.OA\�+Zc;C��t�\�@є+6�\�E`s6��\��{N\�\�](\�,��6`T��yy[�:\�t���@w{[]��?6r	7��\���\���a*R22\��CF\�9\�\�da�\�F\�%;BD���\�\�u,�Gov\�+r�\�i�^TJ�Ht9YHe#pWPA�z�H\"\�c��0�<�0Ͳ��RNe~\�k�\��@\�1\�\0�!E%#$d`�ЁsBp�B\�q�\\3�P�7̅a�ۙ\0\�,u\�\�):v߃�6.�3�-�I�J\��\�=&�\�\�M�ڏG\�Sr�i�`��\�\�\��O�\�q5\�%\�O\�\�*\�\�[x\��\�oLe�+m\�}�\'�TG`����%�\�m�M=@��+�u\�A.�\�\�QA���\�fnx��<y~5�\�\��1[���Q�|��po� ���\�pR\�*\�U\��Vۑ�7�\��\�/�a��\�p�ԋBU@%�9lv7�\0K,�3e��a��iYz7\�\�`�>���N��nEż�\�y�\�}\�c��t���0�`����\�`� (G(‌RF(\n\�\�#�!\0�!F\"�(\�}���j\�q,\�$�N\�VG�5�r\�\�{x\�\�\�p�Z.��K)��\�1XZu�\�P\�\�\�\�x�\�\��\�I\�SP\�P�\�163Y�\'A\�y����xr�2x�\Z���VP�,ֿt�\�F�R\�\\iR�ZT^�@2�6��\�P�NW\�[k{	�p�k\�)\�-�\"86 Y�\r}�t�\\zU\�\�:�[�9j��kl!\�8\�AψaEv\nH&\�W��\�\� \�\�I_	J�\Ž�E#:0���}GS�\�R�ӢZ���7v\�\�.c+�I\"�\�A\�׺�\�{GV�\�-B\��F��\����F�\�a\�fm�x\�<f�\'�Å�u\��g2���G\�\�\�>�\�\�\�Ƀj��\�*7t\�@P\�{\�:\�p\'��M=\�^�4{.ú���\�\�\�i2���B!�B�8@P���B�\�\0�!\0�!5_*�\�	\��\�9��Y��:�R�\���\"�ua~�=�\'Q�\�Ը��Le.\�qv\�q��\�m�\0l?��2ǔ\�Xe\�-�\��{̠\r��_\��\�v�@;��\�|]4jt\�)`>\\\�e��\r\�\�\�w��X\�\�\�ԛ�tU\Z�\�<7Z�U�\��\�n�\�5\�J\�y[o\�o)�qN3_A��e\Z(�\��\�\�\�\�\"D\�\��\�\�\�!\�l\�LK\0`o�\��lp��k(j-e\��\�����ķf\'K�\�\�\���A�\"\��i\�\�kk��\�dC�ņ\�ُ��3^��.�\��\�hJ\�B;E��1CB�2P�(\n\�\�p�4!@!@P�(\�;S�\�\�i5:ŀZ\�\�-\�U�݆\0n`|\�l�\rMX�\�	SpHǨ\�`yk�`^�W�PY����\�\�ALt\�\�8�����\�\�M�s����Q�PS{�ֿ.`\��\�K�	�\"��v�\0 !0	�\�R�+\nu]6���3�\\�\�O�\�%�[����zC?���\"\�\�2ս�\�5�K7\\�O�\\֜\�\�\'mw\�׬�.I\�t�\�u�V\���\�\��j%6���(�fk��Zb�E\�;\�1���\"�,>�M	\�\�:u�\'��\�\�\"Z\�p�┘7\��\�*(u>��=�G�}�\�\�H��ҮG�6\�^\�_v�����\�pVy:5�X:�VR\n�6*�\�0=D�D��G	�\�\Z��\n�ͳ\�¢\�\��\��\0�3s\nP�Ёs@CB��(\�H�\�}�\"[\��h�z\���!���7��MN\\%#S_��.�\�~#\�m\�,������\�]��\�F\\�\�R�;\��J3��\�E�<�ڞpؚ\�\�v⧼���=o6N\�{M\�T�:�L	��M�bXy\�Mj�_1$�I$�nw$\�nab��ɲ\�\�vk�uqm{䤿C�\��o�\�(q���\�\�=\���\�;�ߤ�x\�^%Kʡm�9@���\�\�\�\�%@7\�&}|�\�bݥ]�\�\�s\����m\�\�\�Jh~\�r�������\�0�g�iL��\�z�\0H�~�*ѩ�̒Ⱥvbػ\�\�\��J���e?�铑{?�\���G\�:\�\�AB\�!hCB��\�h;c�\�Tjgj�sE���Ā/� �`5$�����>\�B�Cf}�R.����\�����j;oSjj=\�sP�\�z9�m\�4�MB�\�M<D\�\�\�L�\�|WR���\�\�\�\�rO�18\�a=Ѱ\�{\�	k�t���Zy�\"\�O\��b\0\�++XwGYs��f�R��by�Rie\�ү��ҵK�\�\�\'G\r��\�L�\��N>�i�\�QT\0����\�ǘ�ͦS\�\\�Zr\�Z�W(�8\�\'3%TC1Y�`�l\�{��\�%aTs��-ϐ��dVCk\�!\�\�K|F��\n�\\\�>�\�\"\���K\��k\�\�\�mO\�Dnt\�t\�nR�\r��YQdeԽ�\'\�\�H|\�\�\�:ќ�ث�H\�E#\���	\�$�B8@��!\rB�ƭ\nU+���3�79F\�\�oY\�)\�*b*�z�\�rN�(��\�\�u�i|q�£�-�\no��6ӥ�\'\Zƥ3s{?�x��֮\�_]\��`�3-�\�R<�\�O�\����]�\�-��^C\���el=\�<褱�\�ѱ\�(6��\�\�7W*\�O���m\\�ԝ-`6�u�p�\�ۙ=\0\�f\��d::\�ڎ�O���\���\����.\\����\�Dɍ}$X\�\"Z�e6Uv\�IA���RE*���J�\�s\�\�u�_	\Zj\����sf\���\�W�ᜡو�ɞه���]5\�V:�O[h<��������{8▿�O�ռ�\�v���v?qѿ��?�\�/Ƹ\��\0y:�w��\�)wjS��}�\��KF7\�z�-]id\�\�X����!�\�\Z\�R�yd`~�Y\�g�)�V���~$���\�1-�\0\r~s�IPB�\\B��!5^\�v�a���?��ʻ3~CפI�\�}�\��oR�]K.�r�RG��jx�v\'��\�bso,\rn��9ۺ�`ɶ���#��*�I$�r�\��\rH�!\�+��bu:�\�J8u%�7y��^��\�&!}%ks�+U��S�\���)�A\�I<=R�DR\�h���4\���\�jȸæU�\�i���?���\�p�\�\�\�R�sjϓ\�\�	иd��Zy��+\0KVU�Rw�e�A\�.:ɹ\ZӛQ\��5S�^2����\�jT�Eq\�S�\�n���\�R�\�\�-z�P�\�eD\0:�2S\"\�2��\�u\�bxS a�\�r\�\�\�sf\�^r�\'ٿ�>㶞�y�\'\n\�C^FE\�u�#\�N�1l�\�Q���/\�f\r\�*�ԩE�\\\�\�{���R�[_��\��\�\�ƠE\�\�P38�0�T\�P�lw�\�N�LIL(@\0\0\0\04\0	i\�ݺHLe\'0g��*Nw\'I��%��F\�apՁz?�}\�yv���Z�ٞg��ӧ	g�\�\\�b	\�%\�>cq,W_\�?�\�S�ǻK]}�-;Y{��g�\�o�\�\��r�^\'�c\�:O�\���\0�\�ӗ{�&)���\�({��Υ:\�#hG	^8B\Zc�\�ze�sݧMA,\�vP.d\�\0$\�SĻ3\��ժlr=@�G\�P0\0yΗ�Ħl䋨�\�r/rv6��\�t�፮Ϟ�w@��ab?����-��&vt\�	{r>#\��\'J\�\��}�l�?��\���\�V*J��a��*\�\�g�\�6�@O\"z�	�\��R�\�M46�\rlJ��x�[�%�\�\�y\�\�\�\nj9�4w=Y�\0=»Ó��Jf\�!�5BN\��ɷ#\�2\�o�B��\��k�-�\���Ks\�1p~\�$\�2a*�]�A�����\�v0�\�֣Hk�j�|B�\�v4[0�щ�;\�\�73�R������Y9ո���\�\r�CR�mgl�M~m7\���I-F�:`�D�ms\�y�\�\�1`#^{\\�\�ǆ�\��\�\�\�ߔ�\"cO�*KT\�\r͂�6ӼyK�������Dv\0x�\�,\�q\���\\Z!��t6�IUqs\�R�s�*���E\�gip\�\Z�,~B�Bb\\�vc��eJ.I�����$ʠ\Z \�}\0�\�A��\�%E�\�S\�}���\0Y��.}\�[ԩ(�Kt�\�V.K�*�*KJ�N�\�\�\�k�\�&y	\�\��5Z��K3t�S\�\�\�Ot�M{�\\lap�\��ڗT?��?\'\'\����(\�\�;�\�$\�\0-vf;9q\�.0�\�C\�m\�\n\�_=\��&o�\��^��\nJ���\��I\�\�1\�\�>U���Ç\�\�,�\�\�;�\\\�B�Q�P=M\�\�\r�8M�P�!\�<C\�	�k\'(c�Q3��Z\�{�>&�k[�\�x�նPy^^R\n��\�Aa��C*\r\'�Z�Y\�Hd93������\�\�@i\�Tæ�K\�/o\�N��\�m\�\�\�p�\�TJ�:�u�)@{\�\'v$\\���\�\�\�\Z�ԓ�\��\0G*>�JH��0\Z龺�\����c�M�\0x�$��B�I\'P3s\�>O�-�\�\�瘘\�\�\�p�A}� \�\�v\�ɽ����\�af2�REP\0\�\0�*bm��%\�W�\�и���$���|W!������s��/�VŹ��eU?f:�\�ݮ\�\�mӬ�+Vc#/�\�\�.�w�\Zk\�܏\�s���g饪;\n�\�\�\�g�D\Z ��3�x\n`\�\"��\��k�^D��y��:k\���H\�Y]iwWɪ\�y�/)�LXe6 �\�\�s\�Ss����\Z�\��\�G�$����Ok�\�JF��I$�9\�\�_P�\�^\�]�`Kz\�\�[4�\�kT\�ViR�JH��\�j�i�g,��\�o\��J\r��m\�a�G\Zi\�WP:���f��\�?٩5#j\�T\�`u�L\�O�6�xzND�z|Xk\�y�\��\0X��wc8<�J�H֥b\�EP>�\�I\�^\�p�\0q�\�\�\"\�)�o��v���<�\� !#B�\n��7\���&3굇qdw�\��#\����)\�\�\�!	gٟ�\��\�\�\�B\�Q�-[��&j��\�\�j��f/�?�F�Lp�t\�\��b~?��X\��\�7\�MN��d�?�\�3#a\�&kX��V(Dt�T\�c��!.=-1T!	\�v\�zq�h\���o��\0\�\�W���\'����uZ�\�\�󞭣�\���&�N�!B��\�'),(39,'21 Savage',1,NULL);
+INSERT INTO `Artist` VALUES (1,'88glam',0,NULL),(2,'The Weeknd',1,NULL),(3,'Playboi Carti',0,_binary 'ï»¿'),(4,'Lil Uzi Vert',0,NULL),(5,'Drake',1,NULL),(6,'Kanye West',0,NULL),(7,'Kendrick Lamar',1,NULL),(8,'Tame Impala',0,NULL),(9,'Mac Miller',0,NULL),(10,'Frank Ocean',0,NULL),(11,'Metallica',0,NULL),(12,'Nirvana',0,NULL),(13,'Fred Again..',0,NULL),(14,'The Beatles',0,NULL),(15,'Ken Carson',0,NULL),(16,'Travis Scott',1,NULL),(17,'Harry Styles',0,NULL),(18,'Taylor Swift',0,NULL),(19,'Lil Baby',0,NULL),(20,'Lil Durk',0,NULL),(21,'Autumn!',1,NULL),(22,'Lil Nas X',0,NULL),(23,'Lil Tecca',0,NULL),(24,'Ed Sheeran',0,NULL),(25,'Billie Eilish',0,NULL),(26,'Ariana Grande',0,NULL),(27,'Justin Bieber',0,NULL),(28,'Dua Lipa',0,NULL),(29,'Doja Cat',0,NULL),(30,'David Guetta',0,NULL),(31,'Don Toliver',0,NULL),(32,'Kaytranada',0,NULL),(33,'SZA',0,NULL),(34,'Brent Faiyaz',0,NULL),(35,'Bad Bunny',0,NULL),(36,'J Balvin',0,NULL),(37,'Destroy Lonely',0,_binary 'ÿ\Øÿ\à\0JFIF\0\0H\0H\0\0ÿ\Û\0C\0\n\n\n\r\rÿ\Û\0C		\r\rÿÀ\0\0 \0 \0ÿ\Ä\0\0\0\0\0\0\0\0\0\0\0\0\0\0ÿ\Ä\0>\0\0\0\0\0!1A\"Qaq2¡#B±Áð3b\Ñ\á%4RSrsÿ\Ä\0\0\0\0\0\0\0\0\0\0\0\0ÿ\Ä\0$\0\0\0\0\0\0\0\0\0!1A\"aQ2qÿ\Ú\0\0\0?\0ø!6\å\ÐV´\äk«csjTÁ V´~\ß\Å*\ÔIh*O\æ# ·]\ä[Õò\Ü7³·\ßØº¯´\íJ\Ú\Ì7µ¤KKû\å\0|\àcò©\ÈU$¤´\ÑXuA ©ÐI?*@\åXº\á0­¼\Îö V\É\\ohG\ßÞ G\íÖ\Ó)Ú¾\ïPB]\ËM¶\n£w@i´\Ó\×ZX[\"B7&õö©\í+Z¨\ä¸TJ$OÖ«<%,%Æ»\È÷÷ª§(\Þ\Â8H\ä\Ð\rIJJ\Â	P\îU\Í\0J]N\n\íQPRBc\íTyCj	ÑEZ\\\Þ0yãòÕºù`NdúEiNm¥¥\ÒIP$O¤rh&´\Øq\\AÛ\íõ¢¤~\è\'~\âpPy^rP\0\Ä%<\ZnØ¥¤¥\ÆÀl(Âö4Cd((v Kô8\ËM¥·-Û¹p)/I\n\ì;W,²ù1\Ädt\Õö¥£9ñSj\ë÷i\Ü\Ê$þ \ßJ\ã·m]j³wG±\ÒÔ­\ïUzø\ã^YJG9ú\ÏjÜ»y\î2t±tî½gGn\ëIJQ¨\Û+\Õn\ë»\Òô\ÂB¸&3Y½ò\é\Üü{Tµv¯¬_R®-l´¨\îII\0g°ùq[\Ç)giZF«æ¤«#õ®¤®\Ón\"2H\ä\ÔKa*$\Ñ\í\ÅM%!H1ü$\n°*£>©1ó¨ \0T°IAU\n\ÞKd\r¢L¤s?Ø§a·²c¢¯ÖË·RfALGH\"Ð²\âIJ\É	ñU^Hý\è)Jö?§Ò¢-\Â	>©\ÜOa¿-\'Ñ¸\î\ïE}\nô\n\n\àóD¨¡\ä[\Þ4J¸$nó¾kw\\:a>¹zæ¸\Ö\ß <ù\Ëm¡@ó#øGÏoz\ã&\ÝnZV5\rs_Öm8%6À (ûÖ¸s¾÷\ãqoª\×\r¼\ã D¹$÷«\Ã:Ê¦u¯ °¶\ØQBDµN*Ë=-VAg\Ö:b­o\'V\r\'yHA3\Ê	2\rf\Ít\Þ9{qY\Íý5Û°(k¤»yò®Î¨\Üò\×Áö­Êb¸\"3\È«M\"6$-2;f÷ü\ê 6Hrq1\Å]*)JAÚ¡f(©µþþTP\ê\Ðj!p\Üg5½5T­\Å,;üª&q«+p\íØ@À\n\Ü!S÷ óMnRD9ù\Ôz\Õ=$O·4GTöM¥õÛ®\ÊF\á±Q\æq\\,\Ýw\×¤\êw]¼w¼\â·(\åXË\ZñM\îÖ\Ó6ÌÏ`\Æ¹¬=]r\Þ\Ý>°/¶EUTa\nZ±´#QQ¸y\Í2ù/0v8Ú~õ\Ús¿Ã³Õ·©\Ø\ÚÞ´×\å\ÃA\Ï-)ü\Ê?l~U\Å\\¹Vt[\Íó~ÄWX\â\ÑJACK\0D\Ìsò­´cATÅSA\æ0\08S\Â}@qH<\ç¤	\"?º\Ø\Ý\n!#núPk	²RPB§9ô\ßj\ÛR-BB£pE\ÓnL$ö*\Ìó@5²°@;ÀT\è\"YJ¡?zS)ó\nI\â>\âj&o§ê­!²\Ó÷+Bm\Ö\â\ÊP#ñwö¥r½ºk\Û:x-\Ó\'wq§k0ôvl\áj\âÝ´Ý¾¦\ÜI$µ\Í\Â\Öð\Ï&«Jð\çÃ5Z\Ò\Å~;t¸q-¥7hIQ0\å% }È¬\Ï\í\Óûü¯\Æ\ßð\áÿ\0ÿ\0Põ	³Ó\êYBl4u¸\ã\Î!\r¤®T¨ñ	0*ú\'ö?O5«ÿ\0\Ö./\á¬zÿ\0©\Ùn9i§6~ÐµRa\'\Ö/ßfÿ\0þ\"#\\\Ó4~\ÔtmE6\âþ\Ú\î÷^r\ïqe;Ö\ér+Zp\å/µ\Õg=¨½q{fË\Ùv\Ùb~P®u¬6£|=ùH±\Â1õ®±Á¦4Úh\Ò\Æ\í\Ð2;WE0*L\Øü\ê«\Ä\ì ö \Z)*R\à en<H#d÷ýjºIX\Û\åDm-Z\ÚJV \Ø\â?Ù®\è=3\â.l\Òõ\Ê6¸¿VÁN\'\Øü³A ·²N\Ñ\é\à÷û\Ð\r\Æ\Ò2\ê*\0rÁ4!ª`¾C·µDB½²qm/­\ÊMÅ«©uG\Ì\ÈW<\æ\æÝ¼WYkýg\â3§ONø\Ó\Õ(iJUý\Ï\í[G\"Ø¹H}{ÿ\0G\Ô\Z\Íp³WLù¦x\n[z\'\0~dQ|ÿ\0.»·ñ\Ã\rw¡ÙµÙªø|«k[öõj¶e,_±\é(Þ¥DKj=©\í-Ó¶^;0ö|A\ÄQÅ§ø\Z\Ð\Ò4ÿ\0ú¡ôÒºr\æ\ÑW\æ\îi]¥\Õ}ON.\ÕÙfW\êJ\ZZs8=\ÎMa¼;T\Ýf¨°Oÿ\0ôkq\Æö\Ôm\Ó´ \0~\Ò(>YZJH\Ì\çúQOy¿Ý3\Þ8¢:r\âB¸Á~tq½­§4\Ö\ç<ývKaI¡@\î+«fB})\ßP5Mn\Þr\ÄP	LðLM7RB} ò¢#´\\ºOÎµóÕ±c\ÑA\Ìý»\ÓKñÓ£\ÝzÇ¤<A±\Ö¯ Û¶7^\Ðkz\ì^H}»g\ÛxBü¢\êV0H\È\ç¶N¿\ã÷ú t/\"\í¿Sih\êN ¾°q7z·Ã±kæ¤»\å\îR\0¢F\èbj{\Ím¹ü{ö µÔhÏ±®Z]©\ÝM»¥º·\Ýd­·\n\çyY\áA{GzóËö÷\å0¸ú¤5ÿ\0C#B:²|1\ÒM\ÚÖ­Ì¿©Þª\ÜdÂ\ÖðR\ÈI&=ë¿¿ðFm\â7Ph\ÈÐµ\ÓtK\èÒ´kAoo\æ\ÄÊP÷Q1V]¼ùÉ\ÔÓ¬4+.¡Õ\Ñ\Ôó]<óEVn\Ýÿ\0Y\0,Ì°¸\íô0\ãU¦3ñ\Ú\àÙ©Ò¡\ßkqÁ¦¸\É\å8\0?¿u\Ó@þfvÏ·zn\ÉÞ4 a3\àó­;A¢#\èIV\åDN v¨6ö EtlÄª½2b&{+	J4\rP\Þ\Ù	I\äP5æ ¡ JI\ã1P\â\å6­©\ÍÀ	\É\ß\ß\ëR\ÝE@\ëû«\ëÇq\ÇZ` !nlB=C\0n&9\ÅykÑ\ÕI±\ê\ÕYijop\ÛLMr½òræ»ª9u¥¸\ê)Zü\ÚÀ\ç¹9ü«R8\Ü÷õ\ÎFò\í¼¥úTõY\äQµ1\çÏªº\âñgwV\Ý%f\ë¤,ð¦]¶\ÄHc\çO«9\ÅZ²²¸\é}mµ\Ý2¶\ÚTùn(BV;úVñ®:±t³\ÔZ¼ART\ï\×`­³9\â)¥9MIä§j(¥Düwþ\â\ÍnT\Ì\' 4\ÛÀO`:~À\ÛûT\n\ÛB4\èRI\Ägý¨\r\ænNÀLÞ\ÐBd´{\Ðõ¡A3Døb½@vGj¥S©5&´´9pòp\ãf (¨\æ0qö¼ö]ºnIµI»}M:-\Ã÷\í­wÚ.-K\0\ÚOð\à{v\ï+qN\\Ö6ªJ\0)$(W7¢]v¼Y\ê\r£HZ¿a½´Ã \Ð«ò­KÃ¼·]3zù\àû\Ë}!µp§ý)/&w×·%W!t¤8 I¥3ùMknÆm\Óôºµ\Å&\ì\Û+\ÎI-2\Ä\â­/ú\Ö3R\Å^Ü¾¼·x¥f\Ð6¶JJ¤~AD}©¾R\Ï\Æ\Ç/¡S«¹mD¸fº\Ç¶úN\Ù#\éZh@ 1@ALö\'ò1@4\îqP\á\íR\0¸\Þôûc9þ\â¨Ô­%±\n\ã\ç[j$!\\¦`z¶ù\Äû\Íõ»\é\í\í@;§GqA\Ã\ÖuuY²ó«mhm%G·\ÛW+má¹©6£»«)\r\êzr\ám¡´\Ëi&v1ß ®¥Þ¹\Ékð\ËE=a§õUÓ¿¿¾gM]\àe\ÂeB\Ò\ØOh\'Üj­a\Í\åÀý\Ý\í·Ã¹-¹Á\í\\%{}75Ue\Úõw`CH*LD®\Å\å×N½}ÿ\0;Q$%>¢üª{I\Ò\ã\â\Ê\Ý\æ\ìZ\Ø/U\Ôµ¶`ºµ(\"3\ÈÖ¤nó\Ò\Û\ã]\í½¯¢Ý%¶´ö,IIÿ\0\ÙI®\ßK6]\ÕÁ\Çm×µJ@b\áV®4;D¨}¹5{Lùqt-MZS\å]]#[ìº« ¸\Ó[uXt>\Ø2yª¢RT­\Ê$=P\ÆP¥$ò=ù¨¿üN\Èô\Æª4VvBf=\ëQg)\à¦\â\nTDÏ½U¥g\å\Î($8¢@ \í80{\Ñ®¬ñ6\ÏCEÅµª\Åî¢N\Ñþ[j\Ï\âWô¥fä³{\Ïõkµ9\åÀ$\ÂÏ¹úW\r/½pZ\Ôø¤¾øø¥¤@Gxûj¬K¦¹þú\Ì\è#½kx\á-õb9\Ø\ê¡L®>KHóºoË³\ÔÚ\ì\ëk:s¶ùO-\ïM³\Üùk¤(z¬ 2ø\ì\ç¿\äN³-¶·§j\r4X\Ö,S¹9¸AòDcù\×=Y\Üw\ãgG#¨5\ÍM³qjjC÷vcp¿«Öµ1\Êüc/.\Înÿ\0ñcð_¦oz¬­.Ðô<¿i¥¹\ë/ýn~\Äp\\_	IW|qõ\Ï\ß-É¦K\âv¸g\Ä{RµqEµ_/\á\Ý\n±\n\ÚÚú!&º|y\ï{©z\ÚûRS|]yn\Þ¿ÿ\0/j¶~ÿ\0Z\ç#W(ª¾\Ú\ê\Â\\l(\íQH\ìcµi\Ì4\ÙÜGÒ­¢õ¶	28\ÍYWkÅ\â.-Ð´z¸°FP[±Á\íUH\ç\âeC<î º&ùõ8£A\'RJ\Ì)Í©O\Å\r¥\Újctf@\íWhªø\×/\é\Ì\'N³pµtúw­Ô¶ |Ï¿µKY·\\2I°ÁI<Ee20{£¡¦¾«k\ÞieX[n\'\nBÐ~\Õ`úo\Å²\Ó:[®t\Ë\Öl\î:È·\æº-\Õz\Ù\Ûu§\Ü\r)P\ëE~Z\Ò`©\'[\Ï,OV¶Ñ½z\ÓW\ÐuThÃ¬Y86ÿ\0\ÂøÜ²\È\ÎQ>½\Óö÷Ú-zsFP\Ô\0\Ý\ç\ê®6¦\Ø\n\0\r¡)\ç{ªRDLP¦\Å\ÓW\ítGýQ\Õ6×¢ô®ÍQ\Õ½KQr\ã\É%¦ÁnrB_V	¾·8¾ix\0p0(æ®MD!@\Ñ¡Ú\ÍÑºñeF`H­Ekm¸IQ\Úy[h@¯\ÔvñA\×m\ÕJ²s@Ð$\É\Ïz\Û<[UL\ÐeÞ¤­[X»ºQ\âý?$\'ô±\Ýe\'lOù-Ü\ÈûV Ú¼\ë½\Zv¯\Ðj¢\ßGõ¿U¤\Þ\'\r\Ý${G¥c9\Ä\Õoò¥x\Ò\Þ ø2\ÓZf¶u~1û;P¹´jÿ\0Ou²%%J¼¹v&=\\YÓ\Ð\Ý%Õ¾/$²\ã¨Ðº1\ç_ßµlÕ\ÊJHBX\í¸\ä5	-q¼`ñ\Ã_]Nô\â\ÇI\è©ò­&n\\\ÈS\êsõ)DµR\ÝðË¬\Ë&\nc(\Z\à*\Ý=pmµVH1&&¬\Z\"%&Îº6kJ\Ü18À½rÙ*\Üö\Ð\Û!°°w\ß\åEqºÏ\Ñ/GdmûZ|e\\=<\ÄÖ \0j!dgp<N)\ØDZU\ë¥|w\ëÞÑ\Ò4>©¿²ÒIB¬\nó%IO\'\0MEÎ«Õ¾-u]\Ø\Û\ÙuR\ê:µ¼mný\Ê#Ba2\'1Ú\íS\ä\Îj24	Þ ñª ð3A\â&GÊ+\ÙxÑ\ÐiL¸·\ZJ\âº6b\ÈF>\ÑôEÕQ±\nÜ\É*¢Ç=\Û*9ª*#\Ù\é\r2I}üy	ÿ\0µfô\Í\á÷?­sd ÀúP9*&\àGnkCÀóP,\ÅPY\nj\Å$sD63@TQÚ}(?\Çrh\"(yoO±\rIp½`Ó%D§¿j\é\Z-Q\'¿\Ð¥9U ^(\0`sUIñ)`¤\É\íDQüB¸ó°F\íÀ!j8\àô¬\Öj¡k]²1ùP5®L(\n\ÌÖ¼òjóD9=ý\êÅäB3@\Øû\Ôp\È\Ü\Ð=\"U(\ïòª\">?yP]:n\áJ\ÒÒÀ\ä\Üj&¼\áØ¿T¨D\nª²6Ë¨d­M\É)\íZeÔ§xT\ÎA?¤T°b\åZZmÒ-9O\Î}\Ök*þ\Óõ8\â`S¹d{VY<$@\â¨vò19¨rkJð\ä\ÔBEUaª15Li\Ò2òG5 <c°­i^JJ\Ú\n¾k&\r.\ßvv\Ï\ÂZ©\Îq\í[5\ÝmR©\0÷­+¦\Ê\ÜR±jI\Ú`\È#4øKE¥\rÉ¿Ú%ûÁ½-\ä\í\àAÈk9Õ¬{N\ÑzoK¾³\ÝY4\èÙ¸6\'^_k>¾><,\æ	\Ô^h6V%ö\Z}§\Ôù\æ	?#IKñürn2U¥	»¸JgbW	ü\Íwu-BRsZCPÉ©¤\ä*´J#\Ü\Ð\Ñ?¡\Ñ%Q\r©Ó°M6½b\Ì:¶Ë )*\à\Í\ëL5\í6Ý´>\ÑÅÀi¶iyµRLr~U\ç\Ýÿ\0_[0\Õ\áR\ê\ÛS¡	mHJDEXåf\ä\Þ\Û\0L©5\Þ>f]®R¬·l\Íu\nVW1\Ì~µGi¦Zu\ÐU\é\ç(<µº$¤\Ø\äÆ6¸ò\ï¨\ä¦G\È\Z\Î],\í;¥\É,¶$©¡$ªÿ\0ò×»zñ\ãnûP9@>Â³;t\Ê\Û.\Øý¹\Ü]W¹ü\ë\Õ+ö8G~\ÕGJªBBôX÷A¡\ÓÀó\íP*	RH<pvRUú\ÔY\ÃqÓq\Æ\ãO\Ýa{\Õ^hú»½\Å;©w¶§¨\"e#t\Çü\Ö\ãÏùQ\Ùõkÿ\0\î\×ö¸RU\ë]B(*LGÊ\ÕÚ\è\ãð6¤©K\n pSÀ5D\rHo²pL\îRBg\ëYË¥\Æn­\Ý?dÕ³²·y\ïÁ¯¯­IÃ\â¥\å\éN(:cj 7E\\9®~{¬+1´d¦Ü¬ð²c\í^¨ùPP1#5Gó¤!DÐ	HBNMA\ê N\'¿½ùÀ÷ \ÜúGT}=j¤»\å%höQ\Ä=«\Çx¯³\ã\Ë\Û\äõ.m\îò\ËkJpGh­Kª\åÛ¬5­6£0k\Ó2ö¹-{a$­¨­Â%J\0#ª?ÿ\Ù'),(38,'Yeat',0,_binary 'ÿ\Øÿ\à\0JFIF\0\0\0\0\0\0ÿ\Û\0\0\n\Z\Z\Z!.%+!&8&+/1555\Z$;@;4?.451\Z\Z4!!!4144114=444141444444414414444?1144444444444?44114?ÿÀ\0\0\á\0\á\"\0ÿ\Ä\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0ÿ\Ä\0F\0\0\0\0\0!1AQ\"aq2¡Br±Áð#Rb\Ñá\Â3³ñ$45cs¢²\Ãÿ\Ä\0\0\0\0\0\0\0\0\0\0\0\0\0ÿ\Ä\0 \0\0\0\0\0\0\0\0\0\01!AQBqÿ\Ú\0\0\0?\0\êÐ°!¡B8@Q\ÂÐ8  (G2!@P\Ò0(\Â8 #f(\n)( +B8@¸p¡ (G\n@P 1hI¬H%Q\Ø\r\Ì®\"×U@¹°\×s½]¶­Uvª\îö\09Ø¹$½\îll\æÝ®ö\ß÷xd !q\ï7.E­E®e`ok\Ûy\ÎÓ\ãsûEd\Î\×p®\Â\æû\ZÁö»Ó³\ÓÈª÷¨¹	Vf[\änð[¡·º\ÅqJ4Á,\à\ÙY¬òB¾³\Í\ì\Ç1r[]XÜÇ©ß2IÇ¿¶\Æ\äÀ\Ò\Ò\èzN ìû\Ì\Ù\n]\å=ñ\Ýú\Ë\Ù\æ\Æ+\áT¡P£/;¦¸;\ßc\ë:f½¨S«d\Æ ¦\ÇL\ë|þ`u_=G[I¡\Ña,ÿ\0\éJ&\Ù^\æ\Ý\Æm.I\ntz7\"W¥[1*UzÚ}E\é´2«@CB+G\n)#¤¢¢\ÅB8@¸BÐB¡\ãþ\Ó;ARu¬R\àdº¹$\îu?\r´Ü·\Öo½¢\â\Õ0øw®\ìR\ÂÁB¨,\äh \ÙTsmô\Ð	\çüMr\î\ÕÝ\âN¦\×ü`R÷\Ì\ë\ë·\ËyD\\v\ÖN«òùþ²\Ë}Iýz\Ê\É\Ði\Î2\Ö\ÓÃ\Z\Ü5Á\ÓK^AÁ»xp\ÒY\Çü¤¨5\×ðü%\Öò@þ½ \Óq\ì/kT\n-{\0YÛ¾!\Ý×¯¹\ÒwP\ã\ß8r\ÞÁEô»\0I¹<.Ëª\Û}q\ç­GöWl\ÍG@9g\à9ºu¶ú\Â@¡PÈ\Æb0\Ñ@\Â`c´#B8\n)b+¢#T¨lª.OA\é+Zc;C÷tý\á¦@Ñ+6¦\ÖE`s6º­\í{N\í\â](\Ó,¨6`T³yy[:\êtþ¥@w{[]´?6r	7¹\Öúø\ï¬´a*R22\ÒCF\Ò9\Ì\êda¤\ËF\Ý%;BDª¦\Õ\ìï½u,Gov\ã+ró½­\ãi©^TJHt9YHe#pWPAðz½H\"\ãc¨ò0<0Í²¶RNe~\îk\Òú@\â1\Å\0!E%#$d`ÐsBpB\Æq\\3¢P7ÌaÛ\0\î,u\Þ\Ó):vß6.¥3¨-IûJ\äü\î=&´\â\ÚMûÚG\ÆSri`¾\ä\æ\ÏòO£\Âq5\Þ%\ÈO\Æ\Ã*\ë±\×[x\í\ãoLe£+m\æ}û\'TG`%\ìmM=@¼+²u\ÑA.¬\ä\ÙQA»±\Øfnxþ·<y~5¨\Í\Æó1[ª¯Q³|ªpo  úü¢\ÃpR\ç*\ÔU\ÔüVÛ°7¿\êñ\Î/ºa­¾\ÇpÔBU@%9lv7\0K,½3ea¢iYz7\Ù\Í`ü>µNönEÅ¼¼\ïy³\Î}\ìc­t¼0ð`¬¾\Ð` (G(âRF(\n\Â\Ä#!\0!F\"(\ã}¦j\ãq,\Å$N\éVG5µr\Â\Ç{x\ë\Â\âpõZ.­K)´´\Ý1XZu©\ÔP\È\Â\Ä\Íx÷\Ã\à\ßI\ËSP\ìPµ\×163Y¶\'A\Êyü²öôxr2x\Zµ±VPÀ,Ö¿tó\îF³R\â\\iR¡ZT^µ@26°¿\ÙP£NW\Ó[k{	²p¼k\â)\ß-\"86 Yö\r}t\\zU\É\Ý:[ò9jôõkl!\á8\ÌAÏaEv\nH&\ÞW°\Ã\Ó \Ì\ÝI_	J\ZÌõE#:0¾Á­}GS¤\ÉRÁÓ¢Z«µ®7v\î \è.c+I\"§\ÂA\Ò×º\Í{GV\×-B\ÙF´\Ëö£µFµ\éa\îfmx\ì<f¤\'£Ãu\æóg2õG\È\Î\ï>\Ï\Ø\ÏÉj\Õ*7t\è@P\ë{\ï:\Åp\'­M=\É^õ4{.Ãº \Ê\Ü\Ìi2°¡B!¡B8@PB¢\Å\0!\0!5_*\è	\éõ\å9´Yø:R \Ù¶\"ua~§=ý\'Q´\ãÔ¸¥Le.\èqv\ËqÀ\îm³\0l?¦2Ç\ÓXe\Ç-¶\Þ{Ì \ró_\âø\ä¥v¨@;¥\×|]4jt\Â)`>\\\Äeþ\r\Î\à\Íw«X\æ¬\ì\íÔtU\Z\å<7Z¯Uó\ãó\Ûn¯\Û5\ÚJ\Ìy[o\ëo)ªqN3_Aª÷e\Z(ñ°\Üù\Ë\Ô\í\é\"D\ë\âó\å\ä\Ë!\Òl\ÆLK\0`oþ\Ïûlp´k(j-e\Ïö\é÷´·Ä·f\'Kø\è\î\ÈÀA¸\"\àõi\ä\Äkk¼ô\ïdCþÅ\ÌÙ¹¦3^÷².·\ç­õ\éhJ\ËB;E£1CB2P(\n\Â\Äp4!@!@P(\Ö;SÁ\é\âi5:ÅZ\Ê\ç-\îUÝ\0n`|\Òlò\rMX\Ê	SpHÇ¨\è`yk`^W£PY\Û\ÔALt\ê\Ô8÷þ\Î\îM®s¨§QöPS{Ö¿.`\Æú\ÊK¼	\"v\0 !0	\á¼Rµ+\nu]6øð3¢\\¡\ÓO\ä%[¶·¸úzC?\"\ã\ç2Õ½«\â5§K7\\¬O\\Ö\î\å\'mw\Û×¬¶.I\Îtþ\ÔuV\íö\Ä\ÚÁj%6þ¦(þfkùZbµE\Û;\ã1¿£\",>M	\Ô\è:uñ\'\Ë\Ë\"Z\Ùpºâ7\íÀ\Ý*(u>§¼=G²}¹\Ã\ãH¤ÀÒ®Gû6\Õ^\Ã_vüü\ÞpVy:5X:±VR\n°6*À\Ü0=D¶D½G	\ì\Zý³\nÍ³\ê®Â¢\è\Ö\Ðÿ\0½3s\nPÐs@CB(\âHº\Ü}Á\"[\ã±ôh®z\Õ«°!¹ô7öMN\\%#S_ö.\ã~#\æm\ë,¥­ð\á]§\ßF\\¤\çR;\ËöJ3½\íE¯<ûÚpØ\Ô\Øvâ§¼ü¬=o6N\Ð{M\ÇT:L	¤¹MºbXy\ÜMj³_1$I$nw$\înabÉ²\È\Îvk³uqm{ä¤¿C°\Âõo \ç(qü\Ã\â=\è¿ðü\Ì;¤ß¤x\Ð^%KÊ¡m§9@¸ ¶\Ô\ï\Ë\Â%@7\Þ&}|\ÔbÝ¥]þ\É\Ûs\Ôô¦m\í\å\ÈJh~\Órú°¾­ò\ä¾0¿gýiL÷\Øzÿ\0H~¯*Ñ©ÌÈºvbØ»\Ó\Ä\ÒþJýõe?ýé{?½\ÅüºG\ë:\ì\ÍAB\Ì!hCB\ïh;c\ÂTjgjsE¾®Ä/¶ `5$òûµ>\ÐBCf}R.«­»\í§÷j;oSjj=\ÚsP÷\Ìz9ùm\ç4¼MB\ÏM<D\Ü\Ç\íL¯\È|WR«¨\ì\Ä\î\írOó18\Ìa=Ñ°\Ð{\Æ	ktõ¼¶Zy½\"\ÒO\Ôb\0\ç++XwGYs§f®R§byRie\ÚÒ¯¦ÒµK\×\ç\'G\rö\ÐL´\ÊñN>õi¦\ÝQT\0¢\ìÇ½Í¦S\Â\\Zr\ÈZ W(¿8\é\'3%TC1Y·`l\í{§\è%aTs©-Ï¼dVCk\Ï!\Ó\ÆK|Fþ\n\\\è>­\é\"\í¦ºK\ÌùÂk\è\Ì\ÈmO\ÐDnt\Øt\ÉnR\r÷YQdeÔ½\'\ß\ÉH|\Ù\Ï\å:Ñ¯Ø«ûH\æE#\èõ	\Õ$¡B8@¸!\rB§Æ­\nU+¸º¢379F\Ã\ÏoY\ç)\Æ*b*½z­\ßrN(° \Ã\Òu¯i|qÂ£õ-\no¯6Ó¥ü\'\ZÆ¥3s{?òx±Ö®\ä_]\Íý`õ3-\ãR<¹\ÊO¨\Þý³]¼\ï-¨^C\Ìúel=\Î<è¤±þ\ÒÑ±\ç(6ü¹\É\Ñ7W*\ÕOm\\òÔ-`6ýup÷\ÜÛ=\0\Þf\í¼d::\êÚOô\×¶ò\×¹ö.\\ü ¤\ÊDÉ}$X\Ë\"Ze6Uv\ÓIA·¼RE*ùJô\Ës\Î\Úu·_	\Zj\ÌÀ¹sf\áý\ÇW¨á¡Ù§ÉÙ­]5\æV:O[h<¿¬¤üõ{8â¿ºOýÕ¼°\Åv¦øv?qÑ¿?¬\ë/Æ¸\Äÿ\0y:wÁ\â)wjS¨}\ÐúKF7\Üz-]id\Ô\ÈXò¿û!¬\Ã\Z\ëR¬yd`~Y\Ûgö)V­ª~$¦¿\â1-ÿ\0\r~s°IPB\\B!5^\Þva¨ûµ?¼ªÊ»3~C×¤I±\Ì}¡\âñoR]K.½r¨RGjxv\'¬»\Çbso,\rnó®½9Ûº´`É¶£¤#À*I$r\Þó\rH!\ï+¥«bu:\ÈJ8u%®7yõ^\É&!}%ks+U¸·Sô\ßð)øA\ßI<=R¦DR\Ähª ³4\Øøú\ÉjÈ¸Ã¦Uñ´\äi©°©?\Ùp\Ç\Õ\ÝRsjÏ\ä¢\í	Ð¸d°Zy»õ+\0KVU±Rw÷e´A\È.:É¹\ZÓQ\ìý5Sû^2¦\ÊjT±Eq\ÜS¡\ïn²«\ÃR\Ó\Ã-zPµ\êeD\0:³2S\"\à2÷µ\Öu\ÜbxS a\ßr\ì\å\æsf\×^r\'Ù¿>ã¶y\'\n\áC^FE\Úu#\ìN´1l¿\ËQù/\àf\r\ì«*¢Ô©E©\\\å\Ã{»öR£[_\âñ¬\ç²\ÞÆ E\Ç\âP380¸T\åPlw\çN LIL(@\0\0\0\04\0	i\ÊÝºHLe\'0gõ*Nw\'I%F\íapÕz?º}î£º\ßyvõZÙgÓ§	g·\â\\b	\í%\È>cq,W_\ê?¤\íSÇ»K]}û-;Y{¤g\Ëo\ï\ãòrõ^\'c\î:O±\×þÿ\0¬\êÓ{»&)ù¤¿\ï({ýùÎ¥:\×#hG	^8B\Zcø\ÏzeòsÝ§MA,\îvP.d\ì\0$\ÎSÄ»3\ÅñÕªlr=@¥G\ÙP0\0yÎÄ¦lä¨²\ßr/rv6ö\Ðtá®Ïw@»©ab?ö½ü-­¦&vt\ß	{r>#\Øþ\'J\å°\îÀ}ªl?ø©\Íô\ÍV*Jºaº°*\Ã\Ìg¤\Å6¿@O\"zø	\â¼Rµ\é¥M46³\rlJ°³x[ö%ñ\É\Õy\Õ\È\ë\nj9µ4w=Yÿ\0=Â»Ã¼Jf\Ö!5BN\à÷É·#\ë2\éoB­´\Èk-\Ú¤úKs\Ù1p~\Ù$\ê2a*]ÀA¯ô\Ùv0\ßÖ£Hk±j|B\Öv4[0Ñ¹;\è¢\Ý73R·¹½þôð¿Y9Õ¸´¬³\Ü\rýCR»mglM~m7\Þ¡I-F:`òD¼ms\Ëy¯\Ó\Å1`#^{\\ý\æÇ¯\Üø\Û\Ê\æß\"cO*KT\È\rÍ¨6Ó¼yK¸ °­ñ¬Dv\0x\Ï,\Ýq\Ãõ\\Z!²t6ôIUqs\ÃRµs*·¿E\Þgip\Ô\Z±,~BþBb\\«vcö eJ.I¸½ý$Ê \Z \å}\0ó\ÖA\Ý%Eµ\ÛS\á}´ÿ\0Yõò.}\æ[Ô©(µKt\ïV.K*µ*KJNò\Ý\Ì\çk´\Å&y	\ë\â5Z­K3t§S\Ê\Ü\ÉOt·M{·\\lapý\ÓûÚT?ý?\'\'\àª(\á\×;µ\É$\Ø\0-vf;9q\Ú.0ø\ÌC\×m\î¢\n\Ý_=\Éñ&o¾\Äð¯^­¾\nJø»\ßðI\ë\Ã1\â\Ï>U¿ö²Ã\á\Í,ù\Ý\ß;°\\\ÙBQ¾P=M\Î\Û\r8M°P!\å<C\Ù	ýk\'(c¾Q3õZ\Æ{>&k[\ïxÕ¶Py^^R\n¿¶\ßAaôC*\r\'ZôY\ÌHd93¬ºñ\Ö\ì@i\ÖTÃ¦¡K\Ì/o\áNñ\Ðm\Ì\È\ãp¥\ÜTJ:ûu)@{\×\'v$\\ôôð\ä\Ï\Ö\Z½Ô¡\Îÿ\0G*>JH§0\Zé¾º\Úù÷cMÿ\0xö$ªBI\'P3s\ë>O-÷\Ý\ßç\ä\Ô\ÅpüA}ò  \Ý\èv\ÊÉ½¶ø¾\åaf2REP\0\è\0*bm¤%\â§W\ÑÐ¸½À$þ|W!¥´õ±³s/VÅ¹¡eU?f:\ÏÝ®\ç\ïmÓ¬+Vc#/\ã\ê.¬wþ\Zk\ÍÜ\Ãsõgé¥ª;\nµ\Æ\î\ßg¨D\Z úõ3Áx\n`\×\"»\Õk·^Dy¼¼:k\Ìü¢H\ÆY]iwWÉª\èy¯/)LXe6 ­\Ô\Äs\×Ss¯õ\Z­\îü\îG$¤¶Ok÷\ÄJF¬I$£9\î\×_P\Ì^\î]`Kz\Ï\Ò[4²\íkT\ËViR»JH·\ëj´ig,ö\Úo\ÚöJ\rûªm\ßaµG\Zi\ÕWP:fö\Ú?Ù©5#j\ÕT\æ`u§L\èO6 xzNDz|Xk\Ýy¼\Ùÿ\0X¬wc8<JHÖ¥b\ÝEP>¥\çI\é^\Æpÿ\0q\Ã\Ò\"\Ì)o¾÷vú´ô<¬\ä !#B\n²7\á&3êµqdw\Ú#\Ñõ®)\Ë\î·\â!	gÙ\çø\Ì\à\ØB\ÅQ©-[õò&jµ®\Û\Ýjù©f/³?ýFüLpt\Í\í¾b~?òªX\Ôø\ï7\çMN¯dû?§\á3#a\å&kXV(Dt©T\Úc!.=-1T!	\Êv\ézq¯h\ßøoðÿ\0\á¤\×Wõõ\'»£ÁuZ\ã\Ïó­£ð¯\Ý&N!Bÿ\Ù'),(39,'21 Savage',1,NULL);
 /*!40000 ALTER TABLE `Artist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +116,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`admin`@`%`*/ /*!50003 TRIGGER `update_follower_count` AFTER INSERT ON `Followers` FOR EACH ROW BEGIN
+/*!50003 CREATE*/  /*!50003 TRIGGER `update_follower_count` AFTER INSERT ON `Followers` FOR EACH ROW BEGIN
     -- Increment the follower count when a new follower is added
     UPDATE Artist SET follower_count = follower_count + 1 WHERE artist_ID = NEW.artist_ID;
 END */;;
@@ -134,7 +134,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`admin`@`%`*/ /*!50003 TRIGGER `decrease_follower_count` AFTER DELETE ON `Followers` FOR EACH ROW BEGIN
+/*!50003 CREATE*/  /*!50003 TRIGGER `decrease_follower_count` AFTER DELETE ON `Followers` FOR EACH ROW BEGIN
     -- Decrement the follower count when a follower is removed
     UPDATE Artist SET follower_count = follower_count - 1 WHERE artist_ID = OLD.artist_ID;
 END */;;
@@ -386,7 +386,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `AddSongToPlaylist`(
+CREATE  PROCEDURE `AddSongToPlaylist`(
     IN playlist_id INT,
     IN song_id INT
 )
@@ -410,7 +410,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `CreatePlaylist`(
+CREATE  PROCEDURE `CreatePlaylist`(
     IN name VARCHAR(100),
     IN author VARCHAR(100),
     IN user_ID INT
@@ -435,7 +435,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `DeleteSongFromPlaylist`(
+CREATE  PROCEDURE `DeleteSongFromPlaylist`(
 	IN p_playlist_id INT,
     IN p_song_id INT
 )
@@ -459,7 +459,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `FollowArtist`(
+CREATE  PROCEDURE `FollowArtist`(
     IN user_ID INT,
     IN artist_ID INT
 )
@@ -483,7 +483,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `GetPlaylistSongs`(
+CREATE  PROCEDURE `GetPlaylistSongs`(
 	IN playlist_id INT
 )
 BEGIN
@@ -507,7 +507,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `GetUserIdByUsername`(
+CREATE  PROCEDURE `GetUserIdByUsername`(
     IN old_username VARCHAR(50),
     OUT user_id INT
 )
@@ -529,7 +529,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `LikePlaylist`(IN user_id INT, IN playlist_id INT)
+CREATE  PROCEDURE `LikePlaylist`(IN user_id INT, IN playlist_id INT)
 BEGIN
     INSERT INTO PlaylistLikes (user_id, playlist_id) VALUES (user_id, playlist_id);
 END ;;
@@ -548,7 +548,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `LikeSong`(IN user_id INT, IN song_id INT)
+CREATE  PROCEDURE `LikeSong`(IN user_id INT, IN song_id INT)
 BEGIN
     INSERT INTO LikedSongs (user_id, song_id, date_and_time_liked) VALUES (user_id, song_id, NOW());
 END ;;
@@ -567,8 +567,8 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `LoginUser`(
-	IN `user` VARCHAR(50), 
+CREATE  PROCEDURE `LoginUser`(
+	IN `user` VARCHAR(50),
     IN `pass` VARCHAR(50)
 )
 BEGIN
@@ -589,7 +589,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `RegisterUser`(
+CREATE  PROCEDURE `RegisterUser`(
     IN email_id VARCHAR(255),
     IN username VARCHAR(50),
     IN password VARCHAR(255),
@@ -617,7 +617,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `SearchAll`(
+CREATE  PROCEDURE `SearchAll`(
     IN search_query VARCHAR(100)
 )
 BEGIN
@@ -661,7 +661,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `UnlikePlaylist`(IN user_id INT, IN playlist_id INT)
+CREATE  PROCEDURE `UnlikePlaylist`(IN user_id INT, IN playlist_id INT)
 BEGIN
     DELETE FROM PlaylistLikes WHERE user_id = user_id AND playlist_id = playlist_id;
 END ;;
@@ -680,7 +680,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `UnlikeSong`(IN user_id INT, IN song_id INT)
+CREATE  PROCEDURE `UnlikeSong`(IN user_id INT, IN song_id INT)
 BEGIN
     DELETE FROM LikedSongs WHERE user_id = user_id AND song_id = song_id;
 END ;;
@@ -699,7 +699,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `UpdateUserDetails`(
+CREATE  PROCEDURE `UpdateUserDetails`(
     IN p_user_id INT,
     IN new_email_id VARCHAR(255),
     IN new_username VARCHAR(50),

@@ -88,13 +88,11 @@ The application requires Python and the following Python packages:
 
 You can install these packages using pip in step 4
 
- ```
-## Installation
 1. Clone the repository to your local machine:
-
 ```bash
 git clone https://github.com/chiragchadha1/music-app/
 ```
+
 You can also use the provided ZIP file to download the files
 
 2. Navigate to the project directory:
@@ -105,7 +103,11 @@ cd music-app
 3. Activate the Python virtual environment:
 *Note this step is optional but it is highly recommended. If you skip this step, your pip packages will be installed globally. *
 ```bash
-source venv/ben/activate
+source venv/bin/activate
+```
+If you wish to deactivate the virtual environment simply run
+```bash
+deactivate
 ```
 
 4. Install the required Python packages:
@@ -118,11 +120,12 @@ pip install -r requirements.txt
 cd api
 ```
 6. Run the backend application:
+*If `python3` does not work, try `python`*
 ```bash
-python server.py
+python3 server.py
 ```
 
-The backend (server) is now running
+The backend (server) is now running. Note that the server must be running (alongside the frontend) in order for the application to work. In other words, **do not close this terminal window**.
 
 ## React.js / Vite.js Frontend Setup
 Once the project is on your local machine, begin by navigating to the frontend dictory (vite)
@@ -132,7 +135,7 @@ Once the project is on your local machine, begin by navigating to the frontend d
 cd vite
 ```
 
-2. Install the required Node.js modules
+2. **In a separate terminal window**, install the required Node.js modules
 ```bash
 npm install
 ```
@@ -187,8 +190,18 @@ The CLI provides the following features:
 
 ## How to Run
 
-To run the CLI, execute the `main.py` script. You can do this by navigating into the cli directory and then executing `python3 main.py` or `python main.py` You will be presented with a menu of options corresponding to the features listed above. Enter the number of the option you want to perform and follow the prompts.
+1. Navigate to the cli directory:
+```bash
+cd cli
 
+```
+6. Run the CLI application:
+*If `python3` does not work, try `python`*
+```bash
+python3 main.py
+```
+
+You will be presented with a menu of options corresponding to the features listed above. Enter the number of the option you want to perform and follow the prompts.
 ## Code Structure
 
 The `main.py` script contains a `main` function that serves as the entry point for the CLI. This function presents the menu to the user and calls the appropriate function based on the user's choice.
