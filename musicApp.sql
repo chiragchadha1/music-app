@@ -125,7 +125,7 @@ END //
 
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS LoginUser
+DROP PROCEDURE IF EXISTS LoginUser;
 
 DELIMITER //
 
@@ -218,6 +218,7 @@ CREATE PROCEDURE FollowArtist(
 )
 BEGIN
     INSERT INTO Followers (user_ID, artist_ID) VALUES (user_ID, artist_ID);
+    UPDATE Artist SET follower_count = follower_count + 1 WHERE artist_ID = artist_ID;
     COMMIT;
 END //
 
@@ -344,5 +345,29 @@ BEGIN
     WHERE playlist_ID = p_playlist_id AND song_ID = p_song_id;
     COMMIT;
 END //
+
+DELIMITER ;
+
+DELIMITER //
+	
+CREATE TRIGGER update_follower_count
+AFTER INSERT ON Followers
+FOR EACH ROW
+BEGIN
+    -- Increment the follower count when a new follower is added
+    UPDATE Artist SET follower_count = follower_count + 1 WHERE artist_ID = NEW.artist_ID;
+END//
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER decrease_follower_count
+AFTER DELETE ON Followers
+FOR EACH ROW
+BEGIN
+    -- Decrement the follower count when a follower is removed
+    UPDATE Artist SET follower_count = follower_count - 1 WHERE artist_ID = OLD.artist_ID;
+END//
 
 DELIMITER ;

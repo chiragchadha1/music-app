@@ -109,6 +109,122 @@ def login():
         cur.close()
         db.close()
 
+
+@app.route("/api/search", methods=['GET'], strict_slashes=False)
+def search():
+    query = request.args.get('query')
+    table_name = request.args.get('table_name')
+    db = get_db()
+    cur = db.cursor(dictionary=True)
+    try:
+        cur.callproc("Search", (query, table_name))
+        results = cur.fetchall()
+        return jsonify(results)
+    except Exception as e:
+        print("Error: unable to perform search")
+        print(e)
+        return jsonify({'response': 'Error in search process'}), 500
+
+@app.route("/api/like_song", methods=['POST'], strict_slashes=False)
+def like_song():
+    like_details = request.get_json()
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.callproc("LikeSong", (like_details['user_ID'], like_details['song_ID']))
+        db.commit()
+        return jsonify({'message': 'Song liked successfully'})
+    except Exception as e:
+        print("Error: unable to like song")
+        print(e)
+        return jsonify({'response': 'Error in liking song'}), 500
+
+@app.route("/api/create_playlist", methods=['POST'], strict_slashes=False)
+def create_playlist():
+    playlist_details = request.get_json()
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.callproc("CreatePlaylist", (
+            playlist_details['name'],
+            playlist_details['author'],
+            playlist_details['duration'],
+            playlist_details['user_ID']
+        ))
+        db.commit()
+        return jsonify({'message': 'Playlist created successfully'})
+    except Exception as e:
+        print("Error: unable to create playlist")
+        print(e)
+        return jsonify({'response': 'Error in creating playlist'}), 500
+
+@app.route("/api/follow_artist", methods=['POST'], strict_slashes=False)
+def follow_artist():
+    follow_details = request.get_json()
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.callproc("FollowArtist", (follow_details['user_ID'], follow_details['artist_ID']))
+        db.commit()
+        return jsonify({'message': 'Artist followed successfully'})
+    except Exception as e:
+        print("Error: unable to follow artist")
+        print(e)
+        return jsonify({'response': 'Error in following artist'}), 500
+
+@app.route("/api/add_song_to_playlist", methods=['POST'], strict_slashes=False)
+def add_song_to_playlist():
+    playlist_song_details = request.get_json()
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.callproc("AddSongToPlaylist", (
+            playlist_song_details['playlist_id'],
+            playlist_song_details['song_id']
+        ))
+        db.commit()
+        return jsonify({'message': 'Song added to playlist successfully'})
+    except Exception as e:
+        print("Error: unable to add song to playlist")
+        print(e)
+        return jsonify({'response': 'Error in adding song to playlist'}), 500
+
+@app.route("/api/delete_song_from_playlist", methods=['POST'], strict_slashes=False)
+def delete_song_from_playlist():
+    playlist_song_details = request.get_json()
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.callproc("DeleteSongFromPlaylist", (
+            playlist_song_details['playlist_id'],
+            playlist_song_details['song_id']
+        ))
+        db.commit()
+        return jsonify({'response': 'Song deleted from playlist successfully'})
+    except Exception as e:
+        print("Error: unable to delete song from playlist")
+        print(e)
+        return jsonify({'response': 'Error in deleting song from playlist'}), 500
+
+@app.route("/api/update_song_details", methods=['POST'], strict_slashes=False)
+def update_song_details():
+    song_details = request.get_json()
+    db = get_db()
+    cur = db.cursor()
+    try:
+        cur.callproc("UpdateSongDetails", (
+            song_details['song_id'],
+            song_details['duration'],
+            song_details['language']
+        ))
+        db.commit()
+        return jsonify({'message': 'Song details updated successfully'})
+    except Exception as e:
+        print("Error: unable to update song details")
+        print(e)
+        return jsonify({'response': 'Error in updating song details'}), 500
+
+
 def get_user_id_by_username(username):
     db = get_db()
     cur = db.cursor()
@@ -123,9 +239,7 @@ def get_user_id_by_username(username):
 @app.route("/api/update_user_details", methods=['POST'], strict_slashes=False)
 def update_user_details():
     user_details = request.get_json()
-    print(user_details)
-    user_id = get_user_id_by_username(user_details['old_username'])
-    print(user_id)
+    user_id = get_user_id_by_username(user_details['username'])
     db = get_db()
     cur = db.cursor()
     try:
@@ -172,6 +286,21 @@ def delete_user():
             return jsonify({'response': 'Error in deleting user'}), 500
     else:
         return jsonify({'response': 'User not found'}), 404
+
+
+@app.route("/api/get_playlist_songs", methods=['GET'], strict_slashes=False)
+def get_playlist_songs():
+    playlist_id = request.args.get('playlist_id')
+    db = get_db()
+    cur = db.cursor(dictionary=True)
+    try:
+        cur.callproc("GetPlaylistSongs", (playlist_id,))
+        results = cur.fetchall()
+        return jsonify(results)
+    except Exception as e:
+        print("Error: unable to get playlist songs")
+        print(e)
+        return jsonify({'response': 'Error in getting playlist songs'}), 500
 
 
 if __name__ == '__main__':

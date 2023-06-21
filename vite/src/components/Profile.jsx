@@ -20,11 +20,12 @@ function Profile() {
     const [serverResponse, setServerResponse] = useState('');
     const [successful, setSuccessful] = useState(undefined);
     const [formattedDOB, setFormattedDOB] = useState('');
+    const [oldUsername, setOldUsername] = useState(null);
 
     const signOut = useSignOut();
 
     useEffect(() => {
-        if(userData){
+        if (userData) {
             const dob = new Date(userData.date_of_birth);
             const formattedDOB = dob.toISOString().substring(0, 10);
             setFormattedDOB(formattedDOB);
@@ -47,6 +48,7 @@ function Profile() {
     const onSubmit = (data) => {
         console.log(data);
         const body = {
+            old_username: oldUsername, // Send old username
             first_name: data.firstName,
             last_name: data.lastName,
             username: data.username,
@@ -113,7 +115,7 @@ function Profile() {
                 setShow(true);
                 setSuccessful(true);
                 // Clear the user's authentication token and redirect them
-                signOut();  // You need to get signOut function from useSignOut() hook.
+                signOut(); // You need to get signOut function from useSignOut() hook.
             })
             .catch((err) => {
                 console.log(err);
@@ -132,20 +134,20 @@ function Profile() {
             <h2>Welcome {user().first_name}</h2>
             <br />
             {show ? (
-                    successful ? (
-                        <Alert variant="success" onClose={() => setShow(false)} dismissible>
-                            <Alert.Heading>Success!</Alert.Heading>
-                            <p>{serverResponse}. Please sign out and login to see changes.</p>
-                        </Alert>
-                    ) : (
-                        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-                            <Alert.Heading>Error!</Alert.Heading>
-                            <p>{serverResponse}</p>
-                        </Alert>
-                    )
+                successful ? (
+                    <Alert variant="success" onClose={() => setShow(false)} dismissible>
+                        <Alert.Heading>Success!</Alert.Heading>
+                        <p>{serverResponse}. Please sign out and login to see changes.</p>
+                    </Alert>
                 ) : (
-                    <p></p>
-                )}
+                    <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                        <Alert.Heading>Error!</Alert.Heading>
+                        <p>{serverResponse}</p>
+                    </Alert>
+                )
+            ) : (
+                <p></p>
+            )}
             {editMode ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className="mb-3">
@@ -298,7 +300,9 @@ function Profile() {
                         <Button type="submit" variant="primary">
                             Submit
                         </Button>
-                        <Button className='mx-3' variant='danger' onClick={onDeleteUser}>Delete Account</Button>
+                        <Button className="mx-3" variant="danger" onClick={onDeleteUser}>
+                            Delete Account
+                        </Button>
                     </Form.Group>
                 </form>
             ) : (
@@ -318,7 +322,15 @@ function Profile() {
                     <p>
                         <strong>Date of Birth:</strong> {formattedDOB}
                     </p>
-                    <Button variant='primary' onClick={() => setEditMode(true)}>Edit</Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            setOldUsername(userData.username); // Store old username when user starts editing
+                            setEditMode(true);
+                        }}
+                    >
+                        Edit
+                    </Button>
                 </>
             )}
         </div>
