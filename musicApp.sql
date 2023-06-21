@@ -189,12 +189,11 @@ DELIMITER //
 CREATE PROCEDURE CreatePlaylist(
     IN name VARCHAR(100),
     IN author VARCHAR(100),
-    IN duration INT,
     IN user_ID INT
 )
 BEGIN
-    INSERT INTO Playlist (name, author, duration, user_ID)
-    VALUES (name, author, duration, user_ID);
+    INSERT INTO Playlist (name, author, user_ID)
+    VALUES (name, author, user_ID);
     COMMIT;
 END //
 
