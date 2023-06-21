@@ -137,7 +137,7 @@ function Profile() {
                 successful ? (
                     <Alert variant="success" onClose={() => setShow(false)} dismissible>
                         <Alert.Heading>Success!</Alert.Heading>
-                        <p>{serverResponse}. Please sign out and login to see changes.</p>
+                        <p>{serverResponse}. Please sign out and login to see changes. <br /> If attempting to make more changes please be sure to sign out and login.</p>
                     </Alert>
                 ) : (
                     <Alert variant="danger" onClose={() => setShow(false)} dismissible>
