@@ -1,12 +1,14 @@
 # Music App
-
 ## Introduction
 
 The application can be ran through two interfaces: The Flask/React front-end, which allows users to register, login, view profile info, and delete account. Additionally, the application can be ran through the CLI, which allows users to perform all CRUD operations on the database, such as registering, logging in, creating playlists, liking songs, following aritsts, etc. The CLI is written in Python and interacts with a MySQL database to perform various operations related to music management. The main script is `main.py`.
 
 This is a music application built with Flask, a Python web framework. The application uses Flask-RESTful for creating the API and Flask-Cors for handling Cross-Origin Resource Sharing (CORS). It allows users to create users, log in, and perform CRUD operations to our database.
 
-# Getting Started
+## Live Site
+The Flask/React front-end is currently being hosted on [https://app.chirag.nyc/](https://app.chirag.nyc/) through Heroku. Our database is being hosted on AWS RDS, meaning you can access the application online 24/7 at anytime.
+
+# Flask/React Frontend (Getting Started)
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 There are 3 main parts to run this application on your local machine:
@@ -180,7 +182,7 @@ Please ensure you have the correct versions of the technologies as specified in 
 
 
 
-# Music App CLI
+# CLI (Getting Started)
 
 This is a command-line interface (CLI) for a music application. The CLI is written in Python and interacts with a MySQL database to perform various operations related to music management. The main script is `main.py`.
 
