@@ -94,7 +94,7 @@ function Profile() {
                 'Content-Type': 'application/json',
             },
             // Include the user's ID or other unique identifier in the request body
-            body: JSON.stringify({ id: userData.id }),
+            body: JSON.stringify({ username: userData.username }),
         };
 
         fetch(`${URL}/api/delete_user`, requestOptions)
@@ -122,8 +122,6 @@ function Profile() {
                 setSuccessful(false);
             });
     };
-
-    // console.log(watch('firstName'));
 
     if (!isAuthenticated()) {
         return <p>User not logged in.</p>;

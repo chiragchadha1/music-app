@@ -200,7 +200,7 @@ def delete_song_from_playlist():
             playlist_song_details['song_id']
         ))
         db.commit()
-        return jsonify({'message': 'Song deleted from playlist successfully'})
+        return jsonify({'response': 'Song deleted from playlist successfully'})
     except Exception as e:
         print("Error: unable to delete song from playlist")
         print(e)
@@ -277,6 +277,7 @@ def delete_user_from_db(user_id):
 def delete_user():
     user_details = request.get_json()
     user_id = get_user_id_by_username(user_details['username'])
+    print(user_id)
     if user_id:
         success = delete_user_from_db(user_id)
         if success:
