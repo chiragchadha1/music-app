@@ -69,22 +69,39 @@ The application requires Python and the following Python packages:
 
 - aniso8601==9.0.1
 - blinker==1.6.2
+- certifi==2023.5.7
+- cffi==1.15.1
+- charset-normalizer==3.1.0
 - click==8.1.3
+- cryptography==41.0.1
+- DateTime==5.1
 - Flask==2.3.2
 - Flask-Cors==3.0.10
+- Flask-JWT-Extended==4.5.2
 - Flask-MySQL==1.5.2
 - Flask-RESTful==0.3.10
 - flask-vite==0.2.4
 - gunicorn==20.1.0
+- idna==3.4
 - itsdangerous==2.1.2
 - Jinja2==3.1.2
 - MarkupSafe==2.1.3
 - mysql-connector-python==8.0.33
+- numpy==1.25.0
+- pandas==2.0.2
 - protobuf==3.20.3
+- pycparser==2.21
+- PyJWT==2.7.0
 - PyMySQL==1.0.3
+- python-dateutil==2.8.2
 - pytz==2023.3
+- requests==2.31.0
 - six==1.16.0
+- tzdata==2023.3
+- urllib3==2.0.3
 - Werkzeug==2.3.6
+- zope.interface==6.0
+
 
 You can install these packages using pip in step 4
 
