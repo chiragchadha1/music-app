@@ -2,9 +2,11 @@
 
 ## Introduction
 
+The application can be ran through two interfaces: The Flask/React front-end, which allows users to register, login, view profile info, and delete account. Additionally, the application can be ran through the CLI, which allows users to perform all CRUD operations on the database, such as registering, logging in, creating playlists, liking songs, following aritsts, etc. The CLI is written in Python and interacts with a MySQL database to perform various operations related to music management. The main script is `main.py`.
+
 This is a music application built with Flask, a Python web framework. The application uses Flask-RESTful for creating the API and Flask-Cors for handling Cross-Origin Resource Sharing (CORS). It allows users to create users, log in, and perform CRUD operations to our database.
 
-## Getting Started
+# Getting Started (Flask/React Front-End)
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -72,6 +74,8 @@ For your convenience, here are the download pages for the technologies used in t
 
 Please ensure you have the correct versions of the technologies as specified in the prerequisites section.
 
+
+
 # Music App CLI
 
 This is a command-line interface (CLI) for a music application. The CLI is written in Python and interacts with a MySQL database to perform various operations related to music management. The main script is `main.py`.
@@ -99,7 +103,7 @@ The CLI provides the following features:
 
 ## How to Run
 
-To run the CLI, execute the `main.py` script. You can do this by navingating into the cli directory and then executing `pyhton3 main.py` or `python main.py` You will be presented with a menu of options corresponding to the features listed above. Enter the number of the option you want to perform and follow the prompts.
+To run the CLI, execute the `main.py` script. You can do this by navigating into the cli directory and then executing `python3 main.py` or `python main.py` You will be presented with a menu of options corresponding to the features listed above. Enter the number of the option you want to perform and follow the prompts.
 
 ## Code Structure
 

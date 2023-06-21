@@ -553,10 +553,14 @@ def like_song(user_id, song_id):
         cur.execute('SELECT * FROM LikedSongs WHERE user_id = %s', (user_id,))
         liked_songs = cur.fetchall()
 
-        # Create a dataframe from the result and print it
-        liked_songs_df = pd.DataFrame(liked_songs, columns=[desc[0] for desc in cur.description])
-        print(f"User's liked songs:")
-        print(liked_songs_df)
+        if liked_songs:
+            # Create a dataframe from the result and print it only if it's not empty
+            liked_playlists_df = pd.DataFrame(liked_songs, columns=[desc[0] for desc in cur.description])
+            print(f"User's liked songs after liking:")
+            print(liked_playlists_df)
+        else:
+            print("User has not liked any songs yet.")
+            return
 
     except Error as e:
         print(f"An error occurred while liking the song: {e}")
@@ -566,21 +570,50 @@ def like_song(user_id, song_id):
         cur.close()
         cnx.close()
 
-def unlike_song(user_id, song_id):
+def unlike_song(user_id):
     try:
         cnx, cur = connect_to_database()
         if not cnx or not cur:
             return
 
+        # Fetch the user's liked songs
+        cur.execute('SELECT * FROM LikedSongs WHERE user_id = %s', (user_id,))
+        liked_songs = cur.fetchall()
+
+        # If the user has no liked songs, print a message and return
+        if not liked_songs:
+            print("No liked songs to unlike.")
+            return
+
+        song_id = input("Enter song ID to unlike: ")
+        # Call the UnlikeSong procedure
         cur.callproc("UnlikeSong", [user_id, song_id])
+
+        # Commit the changes
         cnx.commit()
+
         print(f"Unliked song with ID: {song_id}")
+
+        cur.close()  # Close the old cursor
+
+        # Create a new cursor and fetch the updated user's liked songs
+        cur = cnx.cursor()
+        cur.execute('SELECT * FROM LikedSongs WHERE user_id = %s', (user_id,))
+        liked_songs = cur.fetchall()
+
+        # Create a dataframe from the result and print it
+        liked_songs_df = pd.DataFrame(liked_songs, columns=[desc[0] for desc in cur.description])
+        print(f"User's liked songs after unliking:")
+        print(liked_songs_df)
+
     except Error as e:
         print(f"An error occurred while unliking the song: {e}")
         cnx.rollback()
     finally:
+        # Closing the cursor and connection
         cur.close()
         cnx.close()
+
 
 def like_playlist(user_id, playlist_id):
     try:
@@ -588,29 +621,95 @@ def like_playlist(user_id, playlist_id):
         if not cnx or not cur:
             return
 
+        # Fetch the user's liked playlists
+        cur.execute('SELECT * FROM PlaylistLikes WHERE user_id = %s', (user_id,))
+        liked_playlists = cur.fetchall()
+
+        if liked_playlists:
+            # Create a dataframe from the result and print it only if it's not empty
+            liked_playlists_df = pd.DataFrame(liked_playlists, columns=[desc[0] for desc in cur.description])
+            print(f"User's liked playlists before liking:")
+            print(liked_playlists_df)
+        else:
+            print("User has not liked any playlists yet.")
+
+        # Call the LikePlaylist procedure
         cur.callproc("LikePlaylist", [user_id, playlist_id])
         cnx.commit()
+
         print(f"Liked playlist with ID: {playlist_id}")
+
+        cur.close()  # Close the old cursor
+
+        # Create a new cursor and fetch the updated user's liked playlists
+        cur = cnx.cursor()
+        cur.execute('SELECT * FROM PlaylistLikes WHERE user_id = %s', (user_id,))
+        liked_playlists = cur.fetchall()
+
+        # Create a dataframe from the result and print it
+        liked_playlists_df = pd.DataFrame(liked_playlists, columns=[desc[0] for desc in cur.description])
+        print(f"User's liked playlists after liking:")
+        print(liked_playlists_df)
+
     except Error as e:
         print(f"An error occurred while liking the playlist: {e}")
         cnx.rollback()
     finally:
+        # Closing the cursor and connection
         cur.close()
         cnx.close()
 
-def unlike_playlist(user_id, playlist_id):
+
+def unlike_playlist(user_id):
     try:
         cnx, cur = connect_to_database()
         if not cnx or not cur:
             return
 
+        # Fetch the user's liked playlists
+        cur.execute('SELECT * FROM PlaylistLikes WHERE user_id = %s', (user_id,))
+        liked_playlists = cur.fetchall()
+
+        # If the user has no liked playlists, print a message and return
+        if not liked_playlists:
+            print("No liked playlists to unlike.")
+            return
+
+        # Create a dataframe from the result and print it
+        liked_playlists_df = pd.DataFrame(liked_playlists, columns=[desc[0] for desc in cur.description])
+        print(f"User's liked playlists before unliking:")
+        print(liked_playlists_df)
+
+        playlist_id = input("Enter playlist ID to unlike: ")
+
+        # Call the UnlikePlaylist procedure
         cur.callproc("UnlikePlaylist", [user_id, playlist_id])
         cnx.commit()
+
         print(f"Unliked playlist with ID: {playlist_id}")
+
+        cur.close()  # Close the old cursor
+
+        # Create a new cursor and fetch the updated user's liked playlists
+        cur = cnx.cursor()
+        cur.execute('SELECT * FROM PlaylistLikes WHERE user_id = %s', (user_id,))
+        liked_playlists = cur.fetchall()
+
+        # If there are no liked playlists after unliking, print a message and return
+        if not liked_playlists:
+            print("No liked playlists remaining.")
+            return
+
+        # Create a dataframe from the result and print it
+        liked_playlists_df = pd.DataFrame(liked_playlists, columns=[desc[0] for desc in cur.description])
+        print(f"User's liked playlists after unliking:")
+        print(liked_playlists_df)
+
     except Error as e:
         print(f"An error occurred while unliking the playlist: {e}")
         cnx.rollback()
     finally:
+        # Closing the cursor and connection
         cur.close()
         cnx.close()
 
@@ -729,9 +828,7 @@ def main():
 
         elif option == 13:
             if 'user_id' in locals():
-                print_all_songs_with_artist()
-                song_id = input("Enter song ID to unlike: ")
-                unlike_song(user_id, song_id)
+                unlike_song(user_id)
             else:
                 print("Please log in first")
 
@@ -745,9 +842,7 @@ def main():
 
         elif option == 15:
             if 'user_id' in locals():
-                print_all_playlists()
-                playlist_id = input("Enter playlist ID to unlike: ")
-                unlike_playlist(user_id, playlist_id)
+                unlike_playlist(user_id)
             else:
                 print("Please log in first")
 
