@@ -298,7 +298,7 @@ function Profile() {
                         <Button type="submit" variant="primary">
                             Submit
                         </Button>
-                        <Button variant='danger' onClick={onDeleteUser}>Delete Account</Button>
+                        <Button className='mx-3' variant='danger' onClick={onDeleteUser}>Delete Account</Button>
                     </Form.Group>
                 </form>
             ) : (
