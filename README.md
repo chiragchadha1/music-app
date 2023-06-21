@@ -6,11 +6,18 @@ The application can be ran through two interfaces: The Flask/React front-end, wh
 
 This is a music application built with Flask, a Python web framework. The application uses Flask-RESTful for creating the API and Flask-Cors for handling Cross-Origin Resource Sharing (CORS). It allows users to create users, log in, and perform CRUD operations to our database.
 
-# Getting Started (Flask/React Front-End)
+# Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Prerequisites
+
+## MySQL Setup
+By default, `server.py` uses AWS RDS as the host for the online database. If you wish to host the MySQL database on your local machine perform the following instructions.
+
+1.
+
+
+## Python/Flask Server/Backend Setup
 
 The application requires Python and the following Python packages:
 
@@ -33,10 +40,8 @@ The application requires Python and the following Python packages:
 - six==1.16.0
 - Werkzeug==2.3.6
 
-You can install these packages using pip:
+You can install these packages using pip in step 4
 
-```bash
-pip install -r requirements.txt
  ```
 ## Installation
 1. Clone the repository to your local machine:
@@ -44,21 +49,53 @@ pip install -r requirements.txt
 ```bash
 git clone https://github.com/chiragchadha1/music-app/
 ```
+You can also use the provided ZIP file to download the files
 
 2. Navigate to the project directory:
 ```bash
 cd music-app
 ```
 
-3. Install the required Python packages:
+3. Activate the Python virtual environment:
+```bash
+source venv/ben/activate
+```
+
+4. Install the required Python packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run the application:
+5. Navigate to the api directory:
 ```bash
-python app.py
+cd api
 ```
+6. Run the backend application:
+```bash
+python server.py
+```
+
+The backend (server) is now running
+
+## React.js / Vite.js Frontend Setup
+Once the project is on your local machine, begin by navigating to the frontend dictory (vite)
+
+1. Navigate to the vite directory
+```bash
+cd vite
+```
+
+2. Install the required Node.js modules
+```bash
+npm install
+```
+
+3. Run the frontend application:
+```bash
+npm run dev
+```
+
+The frontend is now running.
 
 ## Technology Download Pages
 
