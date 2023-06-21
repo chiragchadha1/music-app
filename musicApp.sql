@@ -284,24 +284,6 @@ END //
 
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS UpdateSongDetails;
-
-DELIMITER //
-
-CREATE PROCEDURE UpdateSongDetails(
-    IN song_id INT,
-    IN new_duration INT,
-    IN new_language VARCHAR(50)
-)
-BEGIN
-    UPDATE Song
-    SET duration = new_duration, language = new_language
-    WHERE song_id = song_id;
-    COMMIT;
-END //
-
-DELIMITER ;
-
 DROP PROCEDURE IF EXISTS GetUserIdByUsername;
 
 DELIMITER //
