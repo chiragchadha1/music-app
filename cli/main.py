@@ -130,9 +130,9 @@ def print_all_songs_with_artist():
             return
 
         # Select all songs with artist information
-        query = "SELECT Songs.song_ID, Songs.song_name, Artist.artist_name " \
-                "FROM Songs " \
-                "INNER JOIN SongArtist ON Songs.song_ID = SongArtist.song_ID " \
+        query = "SELECT Song.song_ID, Song.song_name, Artist.artist_name " \
+                "FROM Song " \
+                "INNER JOIN SongArtist ON Song.song_ID = SongArtist.song_ID " \
                 "INNER JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID"
 
         cur.execute(query)
@@ -142,7 +142,7 @@ def print_all_songs_with_artist():
 
         # Create a DataFrame to display all songs with artists
         df = pd.DataFrame(rows, columns=['Song ID', 'Song Name', 'Artist'])
-        print("\nList of All Songs with Artists:")
+        print("\nList of All Song with Artists:")
         print(df)
 
     except Error as e:
@@ -242,11 +242,11 @@ def add_songs_to_playlist_interaction(playlist_id):
         if not cnx or not cur:
             return
 
-        query = "SELECT Songs.song_ID, Songs.song_name, GROUP_CONCAT(Artist.artist_name SEPARATOR ', ') AS artist_names " \
-                "FROM Songs " \
-                "LEFT JOIN SongArtist ON Songs.song_ID = SongArtist.song_ID " \
+        query = "SELECT Song.song_ID, Song.song_name, GROUP_CONCAT(Artist.artist_name SEPARATOR ', ') AS artist_names " \
+                "FROM Song " \
+                "LEFT JOIN SongArtist ON Song.song_ID = SongArtist.song_ID " \
                 "LEFT JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID " \
-                "GROUP BY Songs.song_ID"
+                "GROUP BY Song.song_ID"
         cur.execute(query)
         songs_data = cur.fetchall()
 
@@ -254,7 +254,7 @@ def add_songs_to_playlist_interaction(playlist_id):
         songs_df = pd.DataFrame(songs_data, columns=["Song ID", "Song Name", "Artist Names"])
 
         # Print the songs DataFrame
-        print("All Songs:")
+        print("All Song:")
         print(songs_df)
 
         # Prompt the user for the number of songs to add
@@ -290,11 +290,11 @@ def delete_songs_from_playlist_interaction(playlist_id):
         if not cnx or not cur:
             return
 
-        query = "SELECT Songs.song_ID, Songs.song_name, GROUP_CONCAT(Artist.artist_name SEPARATOR ', ') AS artist_names " \
-                "FROM Songs " \
-                "LEFT JOIN SongArtist ON Songs.song_ID = SongArtist.song_ID " \
+        query = "SELECT Song.song_ID, Song.song_name, GROUP_CONCAT(Artist.artist_name SEPARATOR ', ') AS artist_names " \
+                "FROM Song " \
+                "LEFT JOIN SongArtist ON Song.song_ID = SongArtist.song_ID " \
                 "LEFT JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID " \
-                "GROUP BY Songs.song_ID"
+                "GROUP BY Song.song_ID"
         cur.execute(query)
         songs_data = cur.fetchall()
 
@@ -441,18 +441,6 @@ def follow_artist_interaction(user_id):
         # Print the artists with follower counts
         print_artists_with_followers()
 
-        # # Prompt the user to unfollow the artist
-        # unfollow = input("Would you like to unfollow this artist? (y/n): ")
-        # if unfollow.lower() == "y":
-        #     # Delete the follower from the Followers table
-        #     query = "DELETE FROM Followers WHERE user_ID = %s AND artist_ID = %s"
-        #     values = (user_id, artist_id)
-        #     cur.execute(query, values)
-
-        #     # Commit the changes
-        #     cnx.commit()
-        #     print("Artist unfollowed.")
-
     except mysql.connector.Error as e:
         print(f"An error occurred while following/unfollowing the artist: {e}")
 
@@ -504,6 +492,51 @@ def unfollow_artist_interaction(user_id):
         cur.close()
         cnx.close()
 
+def search_all(search_query):
+    try:
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
+
+        song_ids = []
+        artist_ids = []
+
+        cur.callproc("SearchAll", [search_query,])
+        for result in cur.stored_results():
+            rows = result.fetchall()
+            for row in rows:
+                id, name, album, artist, type = row
+                if type == 'song':
+                    song_ids.append(id)
+                elif type == 'artist':
+                    artist_ids.append(id)
+
+        if song_ids:
+            song_ids_str = ','.join(map(str, song_ids))  # convert song_ids to comma-separated string
+            cur.execute(f'SELECT * FROM Song WHERE song_id IN ({song_ids_str})')
+            song_rows = cur.fetchall()
+            song_df = pd.DataFrame(song_rows, columns=[desc[0] for desc in cur.description])
+            print('Song Details:')
+            print(song_df)
+
+        if artist_ids:
+            artist_ids_str = ','.join(map(str, artist_ids))  # convert artist_ids to comma-separated string
+            cur.execute(f'SELECT * FROM Artist WHERE artist_id IN ({artist_ids_str})')
+            artist_rows = cur.fetchall()
+            artist_df = pd.DataFrame(artist_rows, columns=[desc[0] for desc in cur.description])
+            print('Artist Details:')
+            print(artist_df)
+    except Error as e:
+        print(f"An error occurred: {e}")
+        cnx.rollback()
+    finally:
+        # Close the cursor and connection
+        cur.close()
+        cnx.close()
+
+
+
 def main():
     while True:
         print("\n1. Register")
@@ -516,7 +549,8 @@ def main():
         print("8. Print all artists")
         print("9. Follow artist")
         print("10. Unfollow artist")
-        print("11. Exit")
+        print("11. Search all")
+        print("12. Exit")
 
         try:
             option = int(input("\nChoose an option: "))
@@ -596,8 +630,14 @@ def main():
             else:
                 print("Please log in first")
 
-
         elif option == 11:
+            if 'user_id' in locals():
+                search_query = input("Enter search query: ")
+                search_all(search_query)
+            else:
+                print("Please log in first")
+
+        elif option == 12:
             print("Exiting...")
             break
 

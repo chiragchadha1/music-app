@@ -36,7 +36,7 @@ CREATE TABLE Album (
     FOREIGN KEY (genre_id) REFERENCES Genre(Genre_ID) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE TABLE Songs (
+CREATE TABLE Song (
     song_ID INT AUTO_INCREMENT PRIMARY KEY,
     duration INT NOT NULL,
     language VARCHAR(50) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE SongArtist (
     song_ID INT,
     artist_ID INT,
     PRIMARY KEY (song_ID, artist_ID),
-    FOREIGN KEY (song_ID) REFERENCES Songs(song_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (song_ID) REFERENCES Song(song_ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (artist_ID) REFERENCES Artist(artist_ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE LikedSongs (
     date_and_time_liked DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_ID, song_ID),
     FOREIGN KEY (user_ID) REFERENCES User(user_ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (song_ID) REFERENCES Songs(song_ID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (song_ID) REFERENCES Song(song_ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Followers (
@@ -93,19 +93,19 @@ CREATE TABLE PlaylistSongs (
     song_ID INT,
     PRIMARY KEY (playlist_ID, song_ID),
     FOREIGN KEY (playlist_ID) REFERENCES Playlist(playlist_ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (song_ID) REFERENCES Songs(song_ID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (song_ID) REFERENCES Song(song_ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE Songs ADD COLUMN song_name VARCHAR(100) NOT NULL AFTER song_id;
+ALTER TABLE Song ADD COLUMN song_name VARCHAR(100) NOT NULL AFTER song_id;
 
 ALTER TABLE Album ADD COLUMN album_name VARCHAR(100) NOT NULL AFTER album_id;
 
-ALTER TABLE Songs ADD COLUMN release_date DATE NOT NULL AFTER song_name;
+ALTER TABLE Song ADD COLUMN release_date DATE NOT NULL AFTER song_name;
 
 ALTER TABLE Album ADD COLUMN release_date DATE NOT NULL AFTER album_name;
 
 
-DROP PROCEDURE IF EXISTS RegisterUser
+DROP PROCEDURE IF EXISTS RegisterUser;
 
 DELIMITER //
 
@@ -129,7 +129,6 @@ DROP PROCEDURE IF EXISTS LoginUser;
 
 DELIMITER //
 
-DROP PROCEDURE IF EXISTS LoginUser;
 CREATE PROCEDURE LoginUser(
 	IN `user` VARCHAR(50), 
     IN `pass` VARCHAR(50)
@@ -150,14 +149,14 @@ CREATE PROCEDURE SearchAll(
 BEGIN
     SET @pattern = CONCAT('%', search_query, '%');
 
-    -- Search in Songs
-    SELECT Songs.song_id AS id, Songs.song_name AS name, Album.album_name AS album_name, GROUP_CONCAT(DISTINCT Artist.artist_name) AS artist_name, 'song' AS type
-    FROM Songs
-    LEFT JOIN Album ON Songs.album_ID = Album.album_ID
-    LEFT JOIN SongArtist ON Songs.song_id = SongArtist.song_ID
+    -- Search in Song
+    SELECT Song.song_id AS id, Song.song_name AS name, Album.album_name AS album_name, GROUP_CONCAT(DISTINCT Artist.artist_name) AS artist_name, 'song' AS type
+    FROM Song
+    LEFT JOIN Album ON Song.album_ID = Album.album_ID
+    LEFT JOIN SongArtist ON Song.song_id = SongArtist.song_ID
     LEFT JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID
-    WHERE Songs.song_name LIKE @pattern OR Artist.artist_name LIKE @pattern OR Album.album_name LIKE @pattern
-    GROUP BY Songs.song_id
+    WHERE Song.song_name LIKE @pattern OR Artist.artist_name LIKE @pattern OR Album.album_name LIKE @pattern
+    GROUP BY Song.song_id
 
     UNION ALL
 
@@ -217,7 +216,7 @@ CREATE PROCEDURE FollowArtist(
     IN artist_ID INT
 )
 BEGIN
-    INSERT INTO Followers (user_ID, artist_ID) VALUES (user_ID, artist_ID);
+    INSERT INTO UpdateUserDetailsFollowers (user_ID, artist_ID) VALUES (user_ID, artist_ID);
     UPDATE Artist SET follower_count = follower_count + 1 WHERE artist_ID = artist_ID;
     COMMIT;
 END //
@@ -266,7 +265,7 @@ CREATE PROCEDURE UpdateSongDetails(
     IN new_language VARCHAR(50)
 )
 BEGIN
-    UPDATE Songs
+    UPDATE Song
     SET duration = new_duration, language = new_language
     WHERE song_id = song_id;
     COMMIT;
@@ -325,9 +324,9 @@ CREATE PROCEDURE GetPlaylistSongs(
 	IN playlist_id INT
 )
 BEGIN
-	SELECT Songs.song_ID, Songs.duration, Songs.language, Songs.album_ID, Songs.song_name, Songs.release_date
-    FROM Songs
-    INNER JOIN PlaylistSongs ON Songs.song_ID = PlaylistSongs.song_ID
+	SELECT Song.song_ID, Song.duration, Song.language, Song.album_ID, Song.song_name, Song.release_date
+    FROM Song
+    INNER JOIN PlaylistSongs ON Song.song_ID = PlaylistSongs.song_ID
     WHERE PlaylistSongs.playlist_ID = playlist_id;
 END //
 
