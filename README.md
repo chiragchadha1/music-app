@@ -9,13 +9,59 @@ This is a music application built with Flask, a Python web framework. The applic
 # Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
+There are 3 main parts to run this application on your local machine:
+1. MySQL database
+2. Python/Flask backend
+3. React.js/Vite.js frontend
 
 ## MySQL Setup
 By default, `server.py` uses AWS RDS as the host for the online database. If you wish to host the MySQL database on your local machine perform the following instructions.
 
-1.
+1. Ensure you have an active MySQL connection. This is typically with a local instance with hostname `localhost` and username `root`
+2. Run the `musicApp_dump.sql` dump file in the music-app directory.
+3. Ensure the tables and procedures are created by looking at the schema section on the left.
+4. Navigate to api folder and update the database connection details in server.py
+    1. Navigate to the api folder
+        ```bash
+        cd api
+        ```
+    2. Replace user, password, and host with your MySQL connection details
+        ```python
+        def get_db():
+            if 'db' not in g:
+                g.db = mysql.connector.connect(
+                    user="admin",
+                    password="6kWyqokwLRHqy6HyIvKC",
+                    host="musicapp.cf3u0flvivkp.us-east-1.rds.amazonaws.com",
+                    database="musicApp" # Replace with your database name
+                )
+            return g.db
+        ```
 
+4. Navigate to cli folder and update the database connection details in main.py
+    1. Navigate to the cli folder
+        ```bash
+        cd cli
+        ```
+    2. Replace user, password, and host with your MySQL connection details
+        ```python
+        def connect_to_database():
+            try:
+                # Establishing the connection
+                cnx = mysql.connector.connect(
+                    user="admin",
+                    password="6kWyqokwLRHqy6HyIvKC",
+                    host="musicapp.cf3u0flvivkp.us-east-1.rds.amazonaws.com",
+                    database="musicApp"  # Replace with your database name
+                )
+                cur = cnx.cursor()  # Create a cursor object
+                return cnx, cur
+            except Error as e:
+                print(f"An error occurred while connecting to the database: {e}")
+                return None, None
+        ```
+
+Your database should now be available to backend of the applicaiton.
 
 ## Python/Flask Server/Backend Setup
 
@@ -57,6 +103,7 @@ cd music-app
 ```
 
 3. Activate the Python virtual environment:
+*Note this step is optional but it is highly recommended. If you skip this step, your pip packages will be installed globally. *
 ```bash
 source venv/ben/activate
 ```
