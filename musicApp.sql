@@ -5,8 +5,6 @@ CREATE DATABASE musicApp;
 -- select the database
 USE musicApp;
 
-
-DROP TABLE IF EXISTS User;
 CREATE TABLE User (
     user_ID INT AUTO_INCREMENT PRIMARY KEY,
     email_id VARCHAR(255) NOT NULL,
@@ -106,6 +104,9 @@ ALTER TABLE Songs ADD COLUMN release_date DATE NOT NULL AFTER song_name;
 
 ALTER TABLE Album ADD COLUMN release_date DATE NOT NULL AFTER album_name;
 
+
+DROP PROCEDURE IF EXISTS RegisterUser
+
 DELIMITER //
 
 CREATE PROCEDURE RegisterUser(
@@ -124,6 +125,8 @@ END //
 
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS LoginUser
+
 DELIMITER //
 
 DROP PROCEDURE IF EXISTS LoginUser;
@@ -136,6 +139,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SearchAll;
 
 DELIMITER //
 
@@ -171,6 +176,7 @@ END //
 
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS LikeSong;
 
 DELIMITER //
 
@@ -184,6 +190,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS CreatePlaylist;
 
 DELIMITER //
 
@@ -200,6 +208,8 @@ END //
 
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS FollowArtist;
+
 DELIMITER //
 
 CREATE PROCEDURE FollowArtist(
@@ -212,6 +222,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS AddSongToPlaylist;
 
 DELIMITER //
 
@@ -227,6 +239,8 @@ END //
 
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS DeleteSongFromPlaylist;
+
 DELIMITER //
 
 CREATE PROCEDURE DeleteSongFromPlaylist(
@@ -240,6 +254,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS UpdateSongDetails;
 
 DELIMITER //
 
@@ -258,6 +274,7 @@ END //
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS GetUserIdByUsername;
+
 DELIMITER //
 
 CREATE PROCEDURE GetUserIdByUsername(
@@ -292,24 +309,40 @@ BEGIN
         WHERE user_id = p_user_id;
         COMMIT;
     ELSE
-        -- Handle the error appropriately. This is just an example.
+        -- Handle the error appropriately.
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Username already exists for another user';
     END IF;
 END //
 
 
 DELIMITER ;
+DROP PROCEDURE IF EXISTS GetPlaylistSongs;
 
 DELIMITER //
 
 CREATE PROCEDURE GetPlaylistSongs(
-    IN playlist_id INT
+	IN playlist_id INT
 )
 BEGIN
-    SELECT Songs.*
+	SELECT Songs.song_ID, Songs.duration, Songs.language, Songs.album_ID, Songs.song_name, Songs.release_date
     FROM Songs
-    JOIN PlaylistSongs ON Songs.song_id = PlaylistSongs.song_id
-    WHERE PlaylistSongs.playlist_id = playlist_id;
+    INNER JOIN PlaylistSongs ON Songs.song_ID = PlaylistSongs.song_ID
+    WHERE PlaylistSongs.playlist_ID = playlist_id;
+END //
+
+DELIMITER ;
+DROP PROCEDURE IF EXISTS DeleteSongFromPlaylist;
+
+DELIMITER //
+
+CREATE PROCEDURE DeleteSongFromPlaylist(
+	IN p_playlist_id INT,
+    IN p_song_id INT
+)
+BEGIN
+	DELETE FROM PlaylistSongs
+    WHERE playlist_ID = p_playlist_id AND song_ID = p_song_id;
+    COMMIT;
 END //
 
 DELIMITER ;

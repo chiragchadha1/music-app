@@ -1,305 +1,312 @@
-from flask import Flask, jsonify, g, request, send_from_directory
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required
-from flask_cors import CORS #comment this on deployment
 import mysql.connector
-import jwt
-import datetime
-import os
+from mysql.connector import Error
+import pandas as pd
 
-app = Flask(__name__, static_folder='../vite/dist')
-app.config["JWT_SECRET_KEY"] = "secret"
-jwt = JWTManager(app)
-CORS(app) #comment this on deployment
-
-def get_db():
-    if 'db' not in g:
-        g.db = mysql.connector.connect(
+def connect_to_database():
+    try:
+        # Establishing the connection
+        cnx = mysql.connector.connect(
             user="admin",
             password="6kWyqokwLRHqy6HyIvKC",
             host="musicapp.cf3u0flvivkp.us-east-1.rds.amazonaws.com",
-            database="musicApp" # Replace with your database name
+            database="musicApp"  # Replace with your database name
         )
-    return g.db
+        cur = cnx.cursor()  # Create a cursor object
+        return cnx, cur
+    except Error as e:
+        print(f"An error occurred while connecting to the database: {e}")
+        return None, None
 
-def generate_token(user_id):
-    # Define the payload for the JWT token
-    payload = {
-        'user_id': user_id,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)  # Token expiration time
-    }
-
-    # Generate the JWT token
-    token = jwt.encode(payload, 'your_secret_key', algorithm='HS256')  # Replace 'your_secret_key' with your own secret key
-
-    return token
-
-@app.teardown_appcontext
-def close_db(e=None):
-    db = g.pop('db', None)
-    if db is not None:
-        db.close()
-
-@app.route('/api/protected', methods=['GET'])
-@jwt_required()
-def protected():
-    return jsonify({'message': 'This is a protected route'})
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
-
-@app.route('/api/signup', methods=['POST'], strict_slashes=False)
-def signup():
-    user_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
+def login_user(username, password):
     try:
-        cur.callproc("RegisterUser", (
-            user_details['email'],
-            user_details['username'],
-            user_details['password'],
-            user_details['firstName'],
-            user_details['lastName'],
-            user_details['dob']
-        ))
-        db.commit()
-        return jsonify({"response": "User created successfully"}), 200
-    except Exception as e:
-        print("Error: unable to create user")
-        print(e)
-        return jsonify({"response": "Error in creating user: " + str(e)}), 400
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return None
 
-@app.route('/api/login', methods=['POST'], strict_slashes=False)
-def login():
-    user_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
-    try:
-        cur.callproc("LoginUser", (user_details['username'], user_details['password']))
-        for result in cur.stored_results():
-            user = result.fetchone()
-            if user:
-                user_data = {
-                    'user_ID': user[0],
-                    'email_id': user[1],
-                    'username': user[2],
-                    'password': user[3],
-                    'first_name': user[4],
-                    'last_name': user[5],
-                    'date_of_birth': user[6],
-                }
-                token = create_access_token(identity=user_data['user_ID'])
-                return jsonify({
-                    'response': 'Login successful',
-                    'token': token,
-                    'expiresIn': '36000000',
-                    'user': user_data
-                }), 200
-            else:
-                return jsonify({'response': 'Invalid username or password'}), 401
-    except Exception as e:
-        print("Error: unable to perform login")
-        print(e)
-        return jsonify({'response': 'Error in login process'}), 500
-    finally:
+        # Execute the login query
+        cur.execute(
+            "SELECT * FROM User WHERE username = %s AND password = %s",
+            (username, password)
+        )
+
+        # Fetch the user if found
+        user = cur.fetchone()
+
+        # Read and discard any unread results
+        cur.fetchall()
+
+        # Closing the cursor and connection
         cur.close()
-        db.close()
+        cnx.close()
+
+        return user
+
+    except Error as e:
+        print(f"An error occurred while logging in: {e}")
+
+    return None
 
 
-@app.route("/api/search", methods=['GET'], strict_slashes=False)
-def search():
-    query = request.args.get('query')
-    table_name = request.args.get('table_name')
-    db = get_db()
-    cur = db.cursor(dictionary=True)
+
+def create_playlist(user_id, playlist_name, author):
     try:
-        cur.callproc("Search", (query, table_name))
-        results = cur.fetchall()
-        return jsonify(results)
-    except Exception as e:
-        print("Error: unable to perform search")
-        print(e)
-        return jsonify({'response': 'Error in search process'}), 500
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
 
-@app.route("/api/like_song", methods=['POST'], strict_slashes=False)
-def like_song():
-    like_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
+        # Call the CreatePlaylist procedure
+        cur.callproc("CreatePlaylist", [playlist_name, author, user_id])
+
+        # Commit the changes
+        cnx.commit()
+
+        print("Playlist created successfully")
+
+    except Error as e:
+        print(f"An error occurred while creating the playlist: {e}")
+
+    finally:
+        # Closing the cursor and connection
+        cur.close()
+        cnx.close()
+
+def add_song_to_playlist(playlist_id, song_id):
     try:
-        cur.callproc("LikeSong", (like_details['user_ID'], like_details['song_ID']))
-        db.commit()
-        return jsonify({'message': 'Song liked successfully'})
-    except Exception as e:
-        print("Error: unable to like song")
-        print(e)
-        return jsonify({'response': 'Error in liking song'}), 500
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
 
-@app.route("/api/create_playlist", methods=['POST'], strict_slashes=False)
-def create_playlist():
-    playlist_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
+        # Call the AddSongToPlaylist procedure
+        cur.callproc("AddSongToPlaylist", [playlist_id, song_id])
+
+        # Commit the changes
+        cnx.commit()
+
+        print(f"Song with ID {song_id} added to playlist with ID {playlist_id}")
+
+    except Error as e:
+        print(f"An error occurred while adding the song to the playlist: {e}")
+
+    finally:
+        # Closing the cursor and connection
+        cur.close()
+        cnx.close()
+
+
+def print_all_songs_with_artist():
     try:
-        cur.callproc("CreatePlaylist", (
-            playlist_details['name'],
-            playlist_details['author'],
-            playlist_details['user_ID']
-        ))
-        db.commit()
-        return jsonify({'message': 'Playlist created successfully'})
-    except Exception as e:
-        print("Error: unable to create playlist")
-        print(e)
-        return jsonify({'response': 'Error in creating playlist'}), 500
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
 
-@app.route("/api/follow_artist", methods=['POST'], strict_slashes=False)
-def follow_artist():
-    follow_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
+        # Select all songs with artist information
+        query = "SELECT Songs.song_ID, Songs.song_name, Artist.artist_name " \
+                "FROM Songs " \
+                "INNER JOIN SongArtist ON Songs.song_ID = SongArtist.song_ID " \
+                "INNER JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID"
+
+        cur.execute(query)
+
+        # Fetch all the rows returned by the query
+        rows = cur.fetchall()
+
+        # Create a DataFrame to display all songs with artists
+        df = pd.DataFrame(rows, columns=['Song ID', 'Song Name', 'Artist'])
+        print("\nList of All Songs with Artists:")
+        print(df)
+
+    except Error as e:
+        print(f"An error occurred while printing the songs: {e}")
+
+    finally:
+        # Closing the cursor and connection
+        cur.close()
+        cnx.close()
+
+
+def remove_song_from_playlist(playlist_id, song_id):
     try:
-        cur.callproc("FollowArtist", (follow_details['user_ID'], follow_details['artist_ID']))
-        db.commit()
-        return jsonify({'message': 'Artist followed successfully'})
-    except Exception as e:
-        print("Error: unable to follow artist")
-        print(e)
-        return jsonify({'response': 'Error in following artist'}), 500
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
 
-@app.route("/api/add_song_to_playlist", methods=['POST'], strict_slashes=False)
-def add_song_to_playlist():
-    playlist_song_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
+        # Call the DeleteSongFromPlaylist procedure
+        cur.callproc("DeleteSongFromPlaylist", [playlist_id, song_id])
+
+        # Commit the changes
+        cnx.commit()
+
+        print(f"Song with ID {song_id} removed from playlist with ID {playlist_id}")
+
+    except Error as e:
+        print(f"An error occurred while removing the song from the playlist: {e}")
+
+    finally:
+        # Closing the cursor and connection
+        cur.close()
+        cnx.close()
+
+def print_playlist(playlist_id):
     try:
-        cur.callproc("AddSongToPlaylist", (
-            playlist_song_details['playlist_id'],
-            playlist_song_details['song_id']
-        ))
-        db.commit()
-        return jsonify({'message': 'Song added to playlist successfully'})
-    except Exception as e:
-        print("Error: unable to add song to playlist")
-        print(e)
-        return jsonify({'response': 'Error in adding song to playlist'}), 500
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
 
-@app.route("/api/delete_song_from_playlist", methods=['POST'], strict_slashes=False)
-def delete_song_from_playlist():
-    playlist_song_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
+        # Prepare the call to the GetPlaylistSongs stored procedure
+        cur.callproc("GetPlaylistSongs", [playlist_id])
+
+        # Fetch the result set from the stored procedure
+        result = next(cur.stored_results())
+
+        # Fetch all the rows returned by the stored procedure
+        rows = result.fetchall()
+
+        # Print the songs in the playlist
+        print(f"Playlist with ID {playlist_id}:")
+        for row in rows:
+            song_id, duration, language, album_id, song_name, release_date = row
+            print(f"Song ID: {song_id}")
+            print(f"Duration: {duration}")
+            print(f"Language: {language}")
+            print(f"Album ID: {album_id}")
+            print(f"Song Name: {song_name}")
+            print(f"Release Date: {release_date}")
+            print("----------------------")
+
+    except Error as e:
+        print(f"An error occurred while printing the playlist: {e}")
+
+    finally:
+        # Closing the cursor and connection
+        cur.close()
+        cnx.close()
+
+
+
+def get_playlist_song_ids(playlist_id):
     try:
-        cur.callproc("DeleteSongFromPlaylist", (
-            playlist_song_details['playlist_id'],
-            playlist_song_details['song_id']
-        ))
-        db.commit()
-        return jsonify({'message': 'Song deleted from playlist successfully'})
-    except Exception as e:
-        print("Error: unable to delete song from playlist")
-        print(e)
-        return jsonify({'response': 'Error in deleting song from playlist'}), 500
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return []
 
-@app.route("/api/update_song_details", methods=['POST'], strict_slashes=False)
-def update_song_details():
-    song_details = request.get_json()
-    db = get_db()
-    cur = db.cursor()
+        # Select song IDs in the playlist
+        query = "SELECT song_ID FROM PlaylistSongs WHERE playlist_ID = %s"
+        cur.execute(query, (playlist_id,))
+        song_ids = [row[0] for row in cur.fetchall()]
+
+        return song_ids
+
+    except Error as e:
+        print(f"An error occurred while getting playlist song IDs: {e}")
+        return []
+
+
+def create_playlist_interaction(user_id):
     try:
-        cur.callproc("UpdateSongDetails", (
-            song_details['song_id'],
-            song_details['duration'],
-            song_details['language']
-        ))
-        db.commit()
-        return jsonify({'message': 'Song details updated successfully'})
-    except Exception as e:
-        print("Error: unable to update song details")
-        print(e)
-        return jsonify({'response': 'Error in updating song details'}), 500
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
 
+        # Prompt the user for playlist name and author
+        playlist_name = input("Enter the playlist name: ")
+        author = input("Enter the author: ")
 
-def get_user_id_by_username(username):
-    db = get_db()
-    cur = db.cursor()
-    try:
-        cur.execute("SELECT user_id FROM User WHERE username = %s", (username,))
-        result = cur.fetchone()
-        return result[0] if result else None
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        db.rollback()
+        # Call the CreatePlaylist procedure to create the playlist
+        cur.callproc("CreatePlaylist", [playlist_name, author, user_id])
 
-@app.route("/api/update_user_details", methods=['POST'], strict_slashes=False)
-def update_user_details():
-    user_details = request.get_json()
-    user_id = get_user_id_by_username(user_details['username'])
-    db = get_db()
-    cur = db.cursor()
-    try:
-        cur.callproc("UpdateUserDetails", (
-            user_id,
-            user_details['email'],
-            user_details['username'],
-            user_details['password'],
-            user_details['first_name'],
-            user_details['last_name'],
-            user_details['date_of_birth']
-        ))
-        db.commit()
-        return jsonify({'response': 'User details updated successfully'})
-    except Exception as e:
-        print("Error: unable to update user details")
-        print(e)
-        # Return error message in response
-        return jsonify({'response': 'Error in updating user details', 'error': str(e)}), 500
+        # Commit the changes
+        cnx.commit()
 
-def delete_user_from_db(user_id):
-    db = get_db()
-    cur = db.cursor()
-    try:
-        cur.execute("DELETE FROM User WHERE user_id = %s", (user_id,))
-        db.commit()
-        return True
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        db.rollback()
-        return False
+        print("Playlist created successfully")
 
+        # Get the generated playlist ID
+        cur.execute("SELECT LAST_INSERT_ID()")
+        playlist_id = cur.fetchone()[0]
 
-@app.route("/api/delete_user", methods=['DELETE'], strict_slashes=False)
-def delete_user():
-    user_details = request.get_json()
-    user_id = get_user_id_by_username(user_details['username'])
-    if user_id:
-        success = delete_user_from_db(user_id)
-        if success:
-            return jsonify({'response': 'User deleted successfully'})
-        else:
-            return jsonify({'response': 'Error in deleting user'}), 500
-    else:
-        return jsonify({'response': 'User not found'}), 404
+        # Get all songs with artists as a DataFrame
+        query = "SELECT Songs.song_ID, Songs.song_name, GROUP_CONCAT(Artist.artist_name SEPARATOR ', ') AS artist_names " \
+                "FROM Songs " \
+                "LEFT JOIN SongArtist ON Songs.song_ID = SongArtist.song_ID " \
+                "LEFT JOIN Artist ON SongArtist.artist_ID = Artist.artist_ID " \
+                "GROUP BY Songs.song_ID"
+        cur.execute(query)
+        songs_data = cur.fetchall()
 
+        # Create a DataFrame from the songs data
+        songs_df = pd.DataFrame(songs_data, columns=["Song ID", "Song Name", "Artist Names"])
 
-@app.route("/api/get_playlist_songs", methods=['GET'], strict_slashes=False)
-def get_playlist_songs():
-    playlist_id = request.args.get('playlist_id')
-    db = get_db()
-    cur = db.cursor(dictionary=True)
-    try:
-        cur.callproc("GetPlaylistSongs", (playlist_id,))
-        results = cur.fetchall()
-        return jsonify(results)
-    except Exception as e:
-        print("Error: unable to get playlist songs")
-        print(e)
-        return jsonify({'response': 'Error in getting playlist songs'}), 500
+        # Print the songs DataFrame
+        print("All Songs:")
+        print(songs_df)
 
+        # Prompt the user for the number of songs to add
+        num_songs = int(input("Enter the number of songs to add: "))
 
-if __name__ == '__main__':
-    app.run(use_reloader=True, port=5000, threaded=True)
+        # Add songs to the playlist
+        for i in range(num_songs):
+            while True:
+                song_id = int(input(f"Enter the song ID for song {i+1}: "))
+                if song_id in songs_df["Song ID"].values:
+                    break
+                else:
+                    print("Invalid song ID. Please try again.")
+
+            print(f"Adding song {song_id} to playlist {playlist_id}")
+            add_song_to_playlist(playlist_id, song_id)
+
+        # Print the playlist
+        print_playlist(playlist_id)
+
+        # Prompt the user for the number of songs to delete
+        num_songs_to_delete = int(input("Enter the number of songs to delete: "))
+
+        # Remove songs from the playlist
+        for i in range(num_songs_to_delete):
+            while True:
+                song_id_to_remove = int(input(f"Enter the song ID to remove from playlist {playlist_id}: "))
+                if song_id_to_remove in songs_df["Song ID"].values and song_id_to_remove in get_playlist_song_ids(playlist_id):
+                    break
+                else:
+                    print("Invalid song ID or song not in the playlist. Please try again.")
+
+            print(f"Removing song {song_id_to_remove} from playlist {playlist_id}")
+            remove_song_from_playlist(playlist_id, song_id_to_remove)
+
+        # Print the updated playlist
+        print_playlist(playlist_id)
+
+    except Error as e:
+        print(f"An error occurred while creating the playlist: {e}")
+
+    finally:
+        # Closing the cursor and connection
+        cur.close()
+        cnx.close()
+
+def main():
+    # Log in to get the user ID
+    username = 'new_user_test'  # Replace with the username
+    password = 'new_password'  # Replace with the password
+    logged_in_user = login_user(username, password)
+    if not logged_in_user:
+        print("Login failed")
+        return
+
+    print('User logged in successfully')
+
+    # Get the user ID
+    user_id = logged_in_user[0]  # Assuming user_id is the first column in the User table
+
+    # Create a playlist with interaction
+    create_playlist_interaction(user_id)
+
+if __name__ == "__main__":
+    main()
