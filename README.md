@@ -71,3 +71,46 @@ For your convenience, here are the download pages for the technologies used in t
 - [gunicorn](https://gunicorn.org/#installation)
 
 Please ensure you have the correct versions of the technologies as specified in the prerequisites section.
+
+# Music App CLI
+
+This is a command-line interface (CLI) for a music application. The CLI is written in Python and interacts with a MySQL database to perform various operations related to music management. The main script is `main.py`.
+
+## Main Features
+
+The CLI provides the following features:
+
+1. **User Registration**: Users can register by providing their email, username, password, first name, last name, and date of birth.
+2. **User Login**: Users can log in using their username and password.
+3. **Playlist Creation**: Logged-in users can create a playlist by providing a playlist name and author.
+4. **Add Song to Playlist**: Logged-in users can add a song to a playlist.
+5. **Print All Songs with Artist**: Prints a list of all songs along with their respective artists.
+6. **Remove Song from Playlist**: Logged-in users can remove a song from a playlist.
+7. **Print Playlist**: Prints the details of a specific playlist.
+8. **Print All Artists**: Prints a list of all artists.
+9. **Follow Artist**: Logged-in users can follow an artist.
+10. **Unfollow Artist**: Logged-in users can unfollow an artist.
+11. **Search All**: Logged-in users can search for songs and artists.
+12. **Like Song**: Logged-in users can like a song.
+13. **Unlike Song**: Logged-in users can unlike a song.
+14. **Like Playlist**: Logged-in users can like a playlist.
+15. **Unlike Playlist**: Logged-in users can unlike a playlist.
+16. **Exit**: Exit the application.
+
+## How to Run
+
+To run the CLI, execute the `main.py` script. You can do this by navingating into the cli directory and then executing `pyhton3 main.py` or `python main.py` You will be presented with a menu of options corresponding to the features listed above. Enter the number of the option you want to perform and follow the prompts.
+
+## Code Structure
+
+The `main.py` script contains a `main` function that serves as the entry point for the CLI. This function presents the menu to the user and calls the appropriate function based on the user's choice.
+
+Each feature is implemented as a separate function. For example, the `register_user` function handles user registration, the `login_user` function handles user login, and so on. These functions interact with the MySQL database using the `mysql.connector` library.
+
+## Database Connection
+
+The script connects to a MySQL database hosted on Amazon RDS. The connection details (user, password, host, and database name) are hard-coded in the `connect_to_database` function. This function establishes the connection and returns a connection object and a cursor object.
+
+## Error Handling
+
+Each function includes error handling to catch and report any errors that occur when interacting with the database. If an error occurs, the function prints an error message and, in some cases, rolls back any changes made during the function's execution.

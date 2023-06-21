@@ -70,7 +70,6 @@ def login_user(username, password):
     return None
 
 
-
 def create_playlist(user_id, playlist_name, author):
     try:
         # Get the database connection and cursor
@@ -535,6 +534,85 @@ def search_all(search_query):
         cur.close()
         cnx.close()
 
+def like_song(user_id, song_id):
+    try:
+        # Get the database connection and cursor
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
+
+        # Call the LikeSong procedure
+        cur.callproc("LikeSong", [user_id, song_id])
+
+        # Commit the changes
+        cnx.commit()
+
+        print(f"Liked song with ID: {song_id}")
+
+        # Fetch the user's liked songs
+        cur.execute('SELECT * FROM LikedSongs WHERE user_id = %s', (user_id,))
+        liked_songs = cur.fetchall()
+
+        # Create a dataframe from the result and print it
+        liked_songs_df = pd.DataFrame(liked_songs, columns=[desc[0] for desc in cur.description])
+        print(f"User's liked songs:")
+        print(liked_songs_df)
+
+    except Error as e:
+        print(f"An error occurred while liking the song: {e}")
+        cnx.rollback()
+    finally:
+        # Closing the cursor and connection
+        cur.close()
+        cnx.close()
+
+def unlike_song(user_id, song_id):
+    try:
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
+
+        cur.callproc("UnlikeSong", [user_id, song_id])
+        cnx.commit()
+        print(f"Unliked song with ID: {song_id}")
+    except Error as e:
+        print(f"An error occurred while unliking the song: {e}")
+        cnx.rollback()
+    finally:
+        cur.close()
+        cnx.close()
+
+def like_playlist(user_id, playlist_id):
+    try:
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
+
+        cur.callproc("LikePlaylist", [user_id, playlist_id])
+        cnx.commit()
+        print(f"Liked playlist with ID: {playlist_id}")
+    except Error as e:
+        print(f"An error occurred while liking the playlist: {e}")
+        cnx.rollback()
+    finally:
+        cur.close()
+        cnx.close()
+
+def unlike_playlist(user_id, playlist_id):
+    try:
+        cnx, cur = connect_to_database()
+        if not cnx or not cur:
+            return
+
+        cur.callproc("UnlikePlaylist", [user_id, playlist_id])
+        cnx.commit()
+        print(f"Unliked playlist with ID: {playlist_id}")
+    except Error as e:
+        print(f"An error occurred while unliking the playlist: {e}")
+        cnx.rollback()
+    finally:
+        cur.close()
+        cnx.close()
 
 
 def main():
@@ -550,7 +628,11 @@ def main():
         print("9. Follow artist")
         print("10. Unfollow artist")
         print("11. Search all")
-        print("12. Exit")
+        print("12. Like song")
+        print("13. Unlike song")
+        print("14. Like playlist")
+        print("15. Unlike playlist")
+        print("16. Exit")
 
         try:
             option = int(input("\nChoose an option: "))
@@ -638,6 +720,38 @@ def main():
                 print("Please log in first")
 
         elif option == 12:
+            if 'user_id' in locals():
+                print_all_songs_with_artist()
+                song_id = input("Enter song ID to like: ")
+                like_song(user_id, song_id)
+            else:
+                print("Please log in first")
+
+        elif option == 13:
+            if 'user_id' in locals():
+                print_all_songs_with_artist()
+                song_id = input("Enter song ID to unlike: ")
+                unlike_song(user_id, song_id)
+            else:
+                print("Please log in first")
+
+        elif option == 14:
+            if 'user_id' in locals():
+                print_all_playlists()
+                playlist_id = input("Enter playlist ID to like: ")
+                like_playlist(user_id, playlist_id)
+            else:
+                print("Please log in first")
+
+        elif option == 15:
+            if 'user_id' in locals():
+                print_all_playlists()
+                playlist_id = input("Enter playlist ID to unlike: ")
+                unlike_playlist(user_id, playlist_id)
+            else:
+                print("Please log in first")
+
+        elif option == 16:
             print("Exiting...")
             break
 

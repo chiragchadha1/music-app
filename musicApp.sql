@@ -179,14 +179,43 @@ DROP PROCEDURE IF EXISTS LikeSong;
 
 DELIMITER //
 
-CREATE PROCEDURE LikeSong(
-    IN user_ID INT,
-    IN song_ID INT
-)
+CREATE PROCEDURE LikeSong(IN user_id INT, IN song_id INT)
 BEGIN
-    INSERT INTO LikedSongs (user_ID, song_ID) VALUES (user_ID, song_ID);
-    COMMIT;
+    INSERT INTO LikedSongs (user_id, song_id, date_and_time_liked) VALUES (user_id, song_id, NOW());
 END //
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS UnlikeSong;
+
+DELIMITER //
+
+CREATE PROCEDURE UnlikeSong(IN user_id INT, IN song_id INT)
+BEGIN
+    DELETE FROM LikedSongs WHERE user_id = user_id AND song_id = song_id;
+END //
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS LikePlaylist;
+
+DELIMITER //
+
+CREATE PROCEDURE LikePlaylist(IN user_id INT, IN playlist_id INT)
+BEGIN
+    INSERT INTO PlaylistLikes (user_id, playlist_id) VALUES (user_id, playlist_id);
+END // 
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS LikePlaylist;
+
+DELIMITER //
+
+CREATE PROCEDURE UnlikePlaylist(IN user_id INT, IN playlist_id INT)
+BEGIN
+    DELETE FROM PlaylistLikes WHERE user_id = user_id AND playlist_id = playlist_id;
+END // 
 
 DELIMITER ;
 
